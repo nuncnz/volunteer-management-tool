@@ -1,0 +1,1 @@
+// This middleware should ensure that all users are authed moving into the 'app' if not redirect them to the auth page.
