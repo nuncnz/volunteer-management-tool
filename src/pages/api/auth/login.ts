@@ -1,0 +1,29 @@
+import {NextApiRequest, NextApiResponse} from "next";
+import {FirebaseAdminService} from "../../../services/FirebaseAdminService";
+import {UserService} from "../../../services/UserService";
+import {AppUser} from "../../../models/AppUser";
+import {UserScope} from "../../../models/UserScope";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const token : string = JSON.parse(req.body).token
+
+    if(token != null || undefined) {
+        await new FirebaseAdminService().getAuth().verifyIdToken(token).then(async (decodedToken) => {
+            await new UserService(new FirebaseAdminService()).getUserByUid(decodedToken.uid).then(async (doc) => {
+                if (doc == undefined || null) {
+                    await new UserService(new FirebaseAdminService()).addUser(
+                        new AppUser("", "", decodedToken.email!, null, null, decodedToken.uid, [UserScope.AUTHED], decodedToken.picture!)
+                    ).then((user) => {
+                        if (user) {
+                            res.status(200).send({user: user})
+                        } else {
+                            res.status(500).send({user: null})
+                        }
+                    })
+                } else {
+                    res.status(200).send({user: doc})
+                }
+            })
+        })
+    }
+}

@@ -27,10 +27,29 @@ export default class FirebaseClientService {
 
     public getAuth() { return this.auth }
 
-    public loginWithGooglePopup() {
+    public signInWithGoogle(redirectOnSuccess: string = "/app/dashboard") {
         signInWithPopup(this.auth, new GoogleAuthProvider())
-            .then((result) => {}).catch((error) => {});
+            .then(async (cred) => {
+
+                await cred.user.getIdToken().then(async (token) => {
+
+                    const options = {
+                        method: "POST",
+                        body: JSON.stringify({token: token})
+                    }
+
+                    await fetch("/api/auth/login", options).then(async (res) => {
+                        const resJson = await res.json()
+                        if (resJson.user == null || undefined) {
+                            this.logOut()
+                        } else {
+                            window.location.href = redirectOnSuccess
+                        }
+                    })
+                })
+            })
     }
+
 
     public logOut() {
         signOut(this.auth).then((result) => {}).catch((error) => {})

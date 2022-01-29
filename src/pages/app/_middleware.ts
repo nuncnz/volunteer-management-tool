@@ -1,16 +1,9 @@
-import type { NextFetchEvent, NextRequest } from 'next/server'
-import {NextResponse} from "next/server";
+import type {NextFetchEvent, NextRequest} from 'next/server'
+import {UserScope} from "../../models/UserScope";
+import {scopedRoute} from "../../utils/ScopedRoute";
 
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
-
-    // Get token and send to api to check if the user should be allowed on this page
-
-    console.log("Middleware Activated")
-    console.log(req.cookies.token)
-
-    if (!req.cookies.token) {
-        return NextResponse.redirect("/auth")
-    }
+    return await scopedRoute(UserScope.AUTHED, req)
 
 }

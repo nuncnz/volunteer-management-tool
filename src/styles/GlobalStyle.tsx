@@ -2,10 +2,6 @@ import {createGlobalStyle, DefaultTheme, GlobalStyleComponent} from "styled-comp
 import normalize from "styled-normalize";
 
 const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
-
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
   
     ${normalize}
     

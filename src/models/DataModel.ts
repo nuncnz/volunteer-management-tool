@@ -1,6 +1,6 @@
 
 export interface DataModel<T> {
 
-    id?: String
+    id: string | null
 
 }

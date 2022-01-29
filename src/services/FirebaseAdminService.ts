@@ -21,6 +21,7 @@ export class FirebaseAdminService {
 
         this.auth = getAuth(this.app)
         this.firestore = getFirestore(this.app)
+        // this.firestore.settings({ ignoreUndefinedProperties: true })
     }
 
     createFirebaseAdminApp(config: AppOptions) {
