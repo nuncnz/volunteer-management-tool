@@ -1,6 +1,6 @@
 import {FirebaseApp, initializeApp} from "firebase/app";
 import {Firestore, getFirestore} from "@firebase/firestore";
-import {Auth, getAuth} from "@firebase/auth";
+import {Auth, getAuth, GoogleAuthProvider, signInWithPopup, signOut} from "@firebase/auth";
 
 export default class FirebaseClientService {
 
@@ -23,8 +23,18 @@ export default class FirebaseClientService {
         this.auth = getAuth(this.app)
     }
 
-    public getFirestore() { return this.firestore }
+    // public getFirestore() { return this.firestore }
 
     public getAuth() { return this.auth }
+
+    public loginWithGooglePopup() {
+        signInWithPopup(this.auth, new GoogleAuthProvider())
+            .then((result) => {}).catch((error) => {});
+    }
+
+    public logOut() {
+        signOut(this.auth).then((result) => {}).catch((error) => {})
+    }
+
 }
 

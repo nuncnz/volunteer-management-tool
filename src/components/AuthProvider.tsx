@@ -1,13 +1,21 @@
-import {createContext, FC, useEffect, useState} from "react";
+import {createContext, ReactChild, ReactNode, useContext, useEffect, useState} from "react";
 import nookies from 'nookies'
 import {User} from "@firebase/auth";
 import FirebaseClientService from "../services/FirebaseClientService";
 
-const firebaseClient = new FirebaseClientService()
+const AuthContext = createContext<{user: User | null, firebaseClient: FirebaseClientService | null}>(
+    {
+        user: null,
+        firebaseClient: null
+    }
+)
 
-const AuthContext = createContext<{user: User | null}>({user: null})
+interface AuthProviderProps {
+    firebaseClient: FirebaseClientService,
+    children: ReactNode
+}
 
-export const AuthProvider : FC = ({children} : any) => {
+export const AuthProvider = ({firebaseClient, children} : AuthProviderProps) => {
 
     const [user, setUser] = useState<User | null>(null)
 
@@ -36,6 +44,10 @@ export const AuthProvider : FC = ({children} : any) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ user, firebaseClient }}>{children}</AuthContext.Provider>
     );
 }
+
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
