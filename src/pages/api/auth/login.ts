@@ -11,9 +11,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         await new FirebaseAdminService().getAuth().verifyIdToken(token).then(async (decodedToken) => {
             await new UserService(new FirebaseAdminService()).getUserByUid(decodedToken.uid).then(async (doc) => {
                 if (doc == undefined || null) {
-                    await new UserService(new FirebaseAdminService()).addUser(
-                        new AppUser("", "", decodedToken.email!, null, null, decodedToken.uid, [UserScope.AUTHED], decodedToken.picture!)
-                    ).then((user) => {
+                    const newUser = new AppUser("", "", decodedToken.email!, null, null, decodedToken.uid, [UserScope.AUTHED], decodedToken.picture!)
+                    await new UserService(new FirebaseAdminService()).addUser(newUser).then((user) => {
+                        console.log("We made it here")
                         if (user) {
                             res.status(200).send({user: user})
                         } else {

@@ -8,8 +8,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const service = new UserService(new FirebaseAdminService())
 
-    const result = await service.addUser(new AppUser("michael", "howell", "jon"))
+    const user = JSON.parse(req.body) as AppUser
 
-    res.status(200).send({ user: result})
+    const newUser = await service.updateUser(user)
+
+    if (newUser == undefined) {
+        res.status(500).send({user: null})
+    } else {
+        res.status(200).send({user: newUser})
+    }
+
+
 
 }
+

@@ -18,6 +18,10 @@ export class UserService extends FirestoreService<AppUser> {
         return await super.getDoc(new Query("googleUid", "==", uid))
     }
 
+    async getUserById(id: string) : Promise<AppUser | undefined> {
+        return await super.getDoc(new Query("id", "==", id))
+    }
+
     async getUserFromToken(token: string) : Promise<AppUser | undefined> {
         const decodedToken = await this.firebaseAdmin.getAuth().verifyIdToken(token)
 
@@ -28,6 +32,14 @@ export class UserService extends FirestoreService<AppUser> {
                 return undefined
             }
         })
+    }
+
+    async getAllUsers() {
+        return await this.getDocs()
+    }
+
+    async updateUser(user: AppUser) {
+        return await this.updateDoc(user)
     }
 
 }
