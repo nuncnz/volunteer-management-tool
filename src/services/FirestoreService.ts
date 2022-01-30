@@ -66,7 +66,6 @@ export class FirestoreService<T extends DataModel<T>> {
         }
     }
 
-
     updateDocs() {
 
     }
