@@ -1,8 +1,8 @@
 import {FirebaseAdminService} from "./FirebaseAdminService";
 import {Firestore, FirestoreDataConverter, CollectionReference} from "firebase-admin/firestore"
-import {FirestoreCollection} from "../models/FirestoreCollection";
-import {DataModel} from "../models/DataModel";
-import {Query} from "../models/Query";
+import {FirestoreCollection} from "../models/db/FirestoreCollection";
+import {DataModel} from "../models/db/DataModel";
+import {Query} from "../models/db/Query";
 
 export class FirestoreService<T extends DataModel<T>> {
 

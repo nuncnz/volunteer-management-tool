@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {FirebaseAdminService} from "../../../services/FirebaseAdminService";
 import {UserService} from "../../../services/UserService";
-import {UserScope} from "../../../models/UserScope";
+import {UserScope} from "../../../models/db/UserScope";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -1,8 +1,8 @@
-import {UserScope} from "../models/UserScope";
+import {UserScope} from "../models/db/UserScope";
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import {NextRequest, NextResponse} from "next/server";
 
-export const scopedRoute = async (requiredScope: UserScope, req: NextRequest, redirectPath: string = "/403") => {
+export const scopedRoute = async (requiredScope: UserScope, req: NextRequest, failRedirectPath: string = "/403", successRedirectPath?: string) => {
     if (req.cookies.token == "") {
         return NextResponse.redirect("/auth?redirect=" + req.nextUrl.pathname)
     } else {
@@ -17,9 +17,9 @@ export const scopedRoute = async (requiredScope: UserScope, req: NextRequest, re
         return await fetch(req.nextUrl.protocol + "//" + req.nextUrl.host + "/api/auth/scope", fetchOptions).then(async (res) => {
             const resJson = await res.json()
             if (resJson.validScope == false) {
-                return NextResponse.redirect(redirectPath)
+                return NextResponse.redirect(failRedirectPath)
             } else {
-                return NextResponse.next()
+                return successRedirectPath ? NextResponse.redirect(successRedirectPath) : NextResponse.next()
             }
         })
     }

@@ -1,5 +1,6 @@
-import {useAuth} from "../../components/AuthProvider";
+import {useAuth} from "../../components/util/AuthProvider";
 import {GetServerSideProps, GetServerSidePropsContext} from "next";
+import {scopedRoute} from "../../utils/ScopedRoute";
 
 interface AuthPageProps {
     redirectUrl: string
@@ -22,8 +23,6 @@ const AuthPage = ({redirectUrl} : AuthPageProps) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context : GetServerSidePropsContext) => {
-
-    console.log(context.query.redirect)
 
     if (context.query.redirect != null) {
         return {

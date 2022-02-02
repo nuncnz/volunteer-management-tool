@@ -1,11 +1,20 @@
 import {NextPage} from "next";
+import Navigation from "../../../components/Navigation";
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+
+    width: 100vw;
+  min-height: 100vh;
+    
+`
 
 const DashboardPage : NextPage = () => {
 
     return (
-        <>
-            <p>Hello there!</p>
-        </>
+        <PageContainer>
+            <Navigation />
+        </PageContainer>
     )
 
 }

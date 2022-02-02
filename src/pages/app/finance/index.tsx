@@ -1,10 +1,11 @@
+import AppPage from "../../../components/AppPage";
 
 const FinancePage = () => {
 
     return (
-        <>
-        <p>Money</p>
-        </>
+        <AppPage>
+
+        </AppPage>
     )
 
 }

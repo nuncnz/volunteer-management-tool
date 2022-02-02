@@ -1,10 +1,11 @@
+import AppPage from "../../../components/AppPage";
 
 const HauoraPage = () => {
 
     return (
-        <>
-        <p>Huaora</p>
-        </>
+        <AppPage>
+
+        </AppPage>
     )
 
 }

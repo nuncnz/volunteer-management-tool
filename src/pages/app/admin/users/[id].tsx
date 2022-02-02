@@ -1,11 +1,12 @@
 import {GetServerSideProps, GetServerSidePropsContext} from "next";
-import {AppUser} from "../../../../models/AppUser";
+import {AppUser} from "../../../../models/db/AppUser";
 import {UserService} from "../../../../services/UserService";
 import {FirebaseAdminService} from "../../../../services/FirebaseAdminService";
 import {useEffect, useState} from "react";
 import styled from "styled-components";
-import {UserScope} from "../../../../models/UserScope";
+import {UserScope} from "../../../../models/db/UserScope";
 import _ from "lodash";
+import AppPage from "../../../../components/AppPage";
 
 const StyledInput = styled.input`
 
@@ -54,7 +55,7 @@ const UserByIdPage = ({user} : UserByIdPageProps) => {
     }
 
     return (
-        <>
+        <AppPage>
             <StyledDiv>
                 <StyledInput type={"text"} value={firstName} onChange={(e) => {setFirstName(e.target.value)}}/>
                 <StyledInput type={"text"} value={lastName} onChange={(e) => {setLastName(e.target.value)}}/>
@@ -67,7 +68,7 @@ const UserByIdPage = ({user} : UserByIdPageProps) => {
                 <img src={picture ? picture : ""} />
             </StyledDiv>
             <button onClick={() => updateUser()}>Update User</button>
-        </>
+        </AppPage>
     )
 }
 
