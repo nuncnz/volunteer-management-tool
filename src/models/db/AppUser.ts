@@ -1,6 +1,6 @@
 import {FirestoreDataConverter, DocumentData, QueryDocumentSnapshot} from "firebase-admin/firestore";
-import {DataModel} from "./DataModel";
-import {UserScope} from "./UserScope";
+import {DataModel} from "../util/DataModel";
+import {UserScope} from "./sub-types/UserScope";
 
 export class AppUser implements DataModel<AppUser> {
 
@@ -41,24 +41,24 @@ export class AppUser implements DataModel<AppUser> {
 
 
 
-    constructor(
+    constructor(user: {
         firstName: string,
         lastName: string,
         primaryEmail: string,
-        id: string | null,
-        secondaryEmail: string | null,
-        googleUid: string | null,
+        id?: string | null,
+        secondaryEmail?: string | null,
+        googleUid?: string | null,
         scope: UserScope[] | null,
-        picture: string | null
+        picture?: string | null}
     ) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.primaryEmail = primaryEmail
-        this.id = id
-        this.secondaryEmail = secondaryEmail
-        this.googleUid = googleUid
-        this.scope = scope
-        this.picture = picture
+        this.firstName = user.firstName
+        this.lastName = user.lastName
+        this.primaryEmail = user.primaryEmail
+        this.id = user.id || null
+        this.secondaryEmail = user.secondaryEmail || null
+        this.googleUid = user.googleUid || null
+        this.scope = user.scope
+        this.picture = user.picture || null
     }
 
     toDbo() {

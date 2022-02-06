@@ -28,7 +28,13 @@ export default class FirebaseClientService {
     public getAuth() { return this.auth }
 
     public signInWithGoogle(redirectOnSuccess: string = "/app/dashboard") {
-        signInWithPopup(this.auth, new GoogleAuthProvider())
+        let provider = new GoogleAuthProvider()
+
+        provider.setCustomParameters({
+            prompt: "select_account"
+        })
+
+        signInWithPopup(this.auth, provider)
             .then(async (cred) => {
 
                 await cred.user.getIdToken().then(async (token) => {
@@ -52,7 +58,9 @@ export default class FirebaseClientService {
 
 
     public logOut() {
-        signOut(this.auth).then((result) => {}).catch((error) => {})
+        signOut(this.auth).then((result) => {
+            window.location.href = "/"
+        }).catch((error) => {})
     }
 
 }

@@ -6,5 +6,8 @@ export enum AppURL {
     ADMIN_MEMBERS_ADD = "/app/admin/members/add",
     FINANCE = "/app/finance",
     HAUORA = "/app/hauora",
+    ATTENDANCE = "/app/attendance",
+    ATTENDANCE_EVENTS = "/app/attendance/events",
+    ATTENDANCE_ADD_EVENT = "/app/attendance/events/add",
     PROFILE = "/app/profile"
 }

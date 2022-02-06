@@ -1,6 +1,7 @@
-import {DataModel} from "./DataModel";
-import {UserScope} from "./UserScope";
+import {DataModel} from "../util/DataModel";
+import {UserScope} from "./sub-types/UserScope";
 import {DocumentData, FirestoreDataConverter, QueryDocumentSnapshot} from "firebase-admin/lib/firestore";
+import {VaccinationStatus} from "./sub-types/VaccinationStatus";
 
 export class Member implements DataModel<Member>{
 
@@ -35,6 +36,9 @@ export class Member implements DataModel<Member>{
     dateOfBirth: string
 
 
+    vaccinationStatus: VaccinationStatus
+
+
 
     // constructor(
     //     firstName: string,
@@ -53,7 +57,9 @@ export class Member implements DataModel<Member>{
         secondaryEmail?: string | null,
         googleUid?: string | null,
         picture?: string | null,
-        dateOfBirth: string})
+        dateOfBirth: string,
+        vaccinationStatus: VaccinationStatus
+    })
     {
         this.firstName = member.firstName
         this.lastName = member.lastName
@@ -61,18 +67,8 @@ export class Member implements DataModel<Member>{
         this.id = member.id || null
         this.secondaryEmail = member.secondaryEmail || null
         this.dateOfBirth = member.dateOfBirth
+        this.vaccinationStatus = member.vaccinationStatus
     }
-
-    toDbo() {
-        return {
-            firstName: this.firstName,
-            lastName: this.lastName,
-            primaryEmail: this.primaryEmail,
-            id: this.id,
-            secondaryEmail: this.secondaryEmail,
-        }
-    }
-
 }
 
 export const MemberConverter : FirestoreDataConverter<Member> = {
@@ -85,7 +81,8 @@ export const MemberConverter : FirestoreDataConverter<Member> = {
             lastName: modelObject.lastName,
             primaryEmail: modelObject.primaryEmail,
             secondaryEmail: modelObject.secondaryEmail,
-            dateOfBirth: modelObject.dateOfBirth
+            dateOfBirth: modelObject.dateOfBirth,
+            vaccinationStatus: modelObject.vaccinationStatus
         }
 
     },
@@ -99,9 +96,8 @@ export const MemberConverter : FirestoreDataConverter<Member> = {
             primaryEmail: data.primaryEmail,
             id: data.id,
             secondaryEmail: data.secondaryEmail,
-            dateOfBirth: data.dateOfBirth
+            dateOfBirth: data.dateOfBirth,
+            vaccinationStatus: data.vaccinationStatus
         }
     }
-
-
 }

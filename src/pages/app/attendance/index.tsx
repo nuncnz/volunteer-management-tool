@@ -1,13 +1,13 @@
 import AppPage from "../../../components/pages/AppPage";
 
-const FinancePage = () => {
+
+const AttendancePage = () => {
 
     return (
         <AppPage>
-
         </AppPage>
     )
 
 }
 
-export default FinancePage
+export default AttendancePage

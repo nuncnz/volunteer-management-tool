@@ -1,8 +1,8 @@
 import {FirestoreService} from "./FirestoreService";
 import {FirebaseAdminService} from "./FirebaseAdminService";
 import {AppUser, AppUserConverter} from "../models/db/AppUser";
-import {FirestoreCollection} from "../models/db/FirestoreCollection";
-import {Query} from "../models/db/Query";
+import {FirestoreCollection} from "../models/util/FirestoreCollection";
+import {Query} from "../models/util/Query";
 
 export class UserService extends FirestoreService<AppUser> {
 
@@ -20,6 +20,10 @@ export class UserService extends FirestoreService<AppUser> {
 
     async getUserById(id: string) : Promise<AppUser | undefined> {
         return await super.getDoc(new Query("id", "==", id))
+    }
+
+    async getUserByEmail(email: string) : Promise<AppUser | undefined> {
+        return await super.getDoc(new Query("primaryEmail", "==", email))
     }
 
     async getUserFromToken(token: string) : Promise<AppUser | undefined> {

@@ -2,10 +2,11 @@ import Link from "next/link";
 import {FC, ReactNode} from "react";
 import styled from "styled-components";
 import {useRouter} from "next/router";
-import {AppURL} from "../models/AppURL";
-import {NavLinkData} from "../models/NavLinkData";
+import {AppURL} from "../../models/app/AppURL";
+import {NavLinkData} from "../../models/app/NavLinkData";
 import SubNavigation from "./SubNavigation";
 import NavLink from "./NavLink";
+import {useAuth} from "../providers/AuthProvider";
 
 const NavigationContainer = styled.div`
 
@@ -73,6 +74,12 @@ const Navigation : FC = () => {
         new NavLinkData(AppURL.ADMIN_MEMBERS, "Members")
     ]
 
+    const attendance = [
+        new NavLinkData(AppURL.ATTENDANCE_EVENTS, "Events"),
+    ]
+
+    const { firebaseClient } = useAuth()
+
     const pathname = useRouter().pathname
 
     let subNav: ReactNode
@@ -80,17 +87,24 @@ const Navigation : FC = () => {
     switch (true) {
         case pathname.includes(AppURL.ADMIN):
             subNav = SubNavigation(pathname, admin)
+            break
+
+        case pathname.includes(AppURL.ATTENDANCE):
+            subNav = SubNavigation(pathname, attendance)
+            break
     }
 
     return (
         <>
             <NavigationContainer>
-                <Link passHref={true} href={AppURL.DASHBOARD}><h2>Volunteer Tool</h2></Link>
+                <Link passHref={true} href={AppURL.DASHBOARD}><h2>PYF Internal App</h2></Link>
                 <ul>
                     {NavLink(pathname, AppURL.ADMIN, "Admin 👨‍⚖️")}
+                    {NavLink(pathname, AppURL.ATTENDANCE, "Attendance 👮‍♀️")}
                     {NavLink(pathname, AppURL.HAUORA, "Hauora 😷")}
                     {NavLink(pathname, AppURL.FINANCE, "Finance 💵")}
                     {NavLink(pathname, AppURL.PROFILE, "Profile 🙈")}
+                    <li><a onClick={() => firebaseClient?.logOut()}>Logout 🔒</a></li>
                 </ul>
             </NavigationContainer>
             {subNav}

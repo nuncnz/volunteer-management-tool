@@ -1,111 +1,48 @@
-import {context} from "@opentelemetry/api";
 import {GetServerSidePropsContext} from "next";
-import {UserService} from "../../../../services/UserService";
 import {FirebaseAdminService} from "../../../../services/FirebaseAdminService";
-import {AppUser} from "../../../../models/db/AppUser";
-import styled from "styled-components";
-import {useState} from "react";
-import Link from "next/link";
-import AppPage from "../../../../components/AppPage";
+import AppPage from "../../../../components/pages/AppPage";
 import {MemberService} from "../../../../services/MemberService";
 import {Member} from "../../../../models/db/Members";
-import {AppURL} from "../../../../models/AppURL";
-
-const ContentContainer = styled.div`
-
-
-  width: 100% - (100px * 2);
-
-  padding: 50px 100px;
-    
-
-`
-
-const StyleTable = styled.table`
-
-  text-align: left;
-  width: 60%;
-
-  input {
-    border: 1px solid black;
-    color: black;
-  }
-  
-  border-spacing: 0;
-  
-  
-  
-  
-  td {
-    padding: 15px 0;
-    border-bottom: 2px solid black;
-    
-    img {
-      margin: 10px;
-    }
-    
-  }
-  
-  th {
-    height: 3rem;
-  }
-
-  th, td {
-    padding-left: 15px;
-  }
-  
-  thead {
-    
-    
-    
-    
-    background-color: ${props => props.theme.colours.primary.dark};
-    color: ${props => props.theme.colours.primary.light};
-  }
-  
-
-`
+import {useRouter} from "next/router";
+import Link from "next/link"
+import StyledTable from "../../../../components/tables/StyledTable";
+import {getVaccinationStatusText} from "../../../../models/db/sub-types/VaccinationStatus";
 
 
 interface AdminMembersPageProps {
     members: Member[]
 }
 
+
 const AdminMembersPage = ({members} : AdminMembersPageProps) => {
+
+    const router = useRouter()
 
     return (
         <AppPage>
-            <ContentContainer>
-                <Link href={AppURL.ADMIN_MEMBERS_ADD}>Add</Link>
-                <StyleTable width={"100%"}>
+                <Link href={"/app/admin/members/add"}><a>Add User</a></Link>
+                <StyledTable>
                     <thead>
                     <tr>
-                        <th></th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Date of Birth</th>
                         <th>Vaccination Status?</th>
-                        {/*<th>Image</th>*/}
-                        {/*<th></th>*/}
                     </tr>
                     </thead>
                     {members?.map((user) => {
                         return (
-                            <tr key={user.id}>
-                                <td>🚩</td>
+                            <tr id={"clickable"} key={user.id} onClick={()=> {router.push("/app/admin/members/"+user.id)}}>
                                 <td>{user.firstName}</td>
                                 <td>{user.lastName}</td>
                                 <td>{user.primaryEmail}</td>
                                 <td>{user.dateOfBirth}</td>
-                                <td>✅</td>
-                                {/*<td>{user.picture ? <img src={user.picture}/> : null}</td>*/}
-                                {/*<td><Link href={"/app/admin/users/" +  user.id}>Edit</Link></td>*/}
+                                <td>{getVaccinationStatusText(user.vaccinationStatus)}</td>
                             </tr>
                         )
                     })}
-                </StyleTable>
-            </ContentContainer>
+                </StyledTable>
         </AppPage>
     )
 

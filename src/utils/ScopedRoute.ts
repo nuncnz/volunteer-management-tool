@@ -1,4 +1,4 @@
-import {UserScope} from "../models/db/UserScope";
+import {UserScope} from "../models/db/sub-types/UserScope";
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import {NextRequest, NextResponse} from "next/server";
 
