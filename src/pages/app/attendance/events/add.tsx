@@ -2,7 +2,7 @@ import AppPage from "../../../../components/pages/AppPage";
 import {useState} from "react";
 import {EventType} from "../../../../models/db/Event";
 import {MemberGroup} from "../../../../models/db/MemberGroup";
-import Form from "../../../../components/forms/Form";
+import BaseForm from "../../../../components/forms/BaseForm";
 
 interface AttendanceEventAddProps {
     memberGroups: Array<MemberGroup>
@@ -23,7 +23,7 @@ const AttendanceEventAdd = ({memberGroups} : AttendanceEventAddProps) => {
 
     return (
         <AppPage>
-            <Form>
+            <BaseForm>
                 <div>
                     <div id={"input"}>
                         <h3>Event Name</h3>
@@ -60,7 +60,7 @@ const AttendanceEventAdd = ({memberGroups} : AttendanceEventAddProps) => {
                     </div>
                     <button onClick={() => createEvent()}>Create</button>
                 </div>
-            </Form>
+            </BaseForm>
         </AppPage>
     )
 }

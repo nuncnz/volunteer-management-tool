@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "deploy": "next build && gcloud app deploy --project volunteer-tool --quiet"
+    "deploy": "gcloud config set account 'michael@nunc.co.nz' && gcloud config set project volunteer-tool && next build && gcloud app deploy --project volunteer-tool --quiet"
   },
   "dependencies": {
     "@types/lodash": "^4.14.178",

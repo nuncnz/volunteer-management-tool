@@ -70,8 +70,8 @@ export class FirestoreService<T extends DataModel<T>> {
 
     }
 
-    deleteDoc() {
-
+    async deleteDoc(id: string) {
+        await this.collection.doc(id).delete().then((r) => console.log(r))
     }
 
     deleteDocs() {

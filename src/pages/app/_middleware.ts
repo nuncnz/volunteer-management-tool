@@ -4,6 +4,6 @@ import {scopedRoute} from "../../utils/ScopedRoute";
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
-    return await scopedRoute(UserScope.AUTHED, req)
+    return await scopedRoute(UserScope.ADMIN, req)
 
 }

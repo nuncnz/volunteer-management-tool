@@ -71,7 +71,8 @@ const Navigation : FC = () => {
 
     const admin = [
         new NavLinkData(AppURL.ADMIN_USERS, "Users"),
-        new NavLinkData(AppURL.ADMIN_MEMBERS, "Members")
+        new NavLinkData(AppURL.ADMIN_MEMBERS, "Members"),
+        new NavLinkData(AppURL.ADMIN_GROUPS, "Groups")
     ]
 
     const attendance = [

@@ -38,17 +38,9 @@ export class Member implements DataModel<Member>{
 
     vaccinationStatus: VaccinationStatus
 
+    googleUid: string | null
 
-
-    // constructor(
-    //     firstName: string,
-    //     lastName: string,
-    //     primaryEmail: string,
-    //     id: string | null,
-    //     secondaryEmail: string | null,
-    //     googleUid: string | null,
-    //     picture: string | null
-    // )
+    picture: string | null
 
     constructor(member: {firstName: string,
         lastName: string,
@@ -68,6 +60,8 @@ export class Member implements DataModel<Member>{
         this.secondaryEmail = member.secondaryEmail || null
         this.dateOfBirth = member.dateOfBirth
         this.vaccinationStatus = member.vaccinationStatus
+        this.googleUid = member.googleUid || null
+        this.picture = member.picture || null
     }
 }
 

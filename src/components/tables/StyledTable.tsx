@@ -1,21 +1,22 @@
 import styled from "styled-components";
 import {ReactNode} from "react";
+import {CustomComponentProps} from "../../utils/CustomComponentProps";
 
-const Table = styled.table`
+const CustomTable = styled.table`
 
   text-align: left;
-  width: 60%;
-
-  input {
-    border: 1px solid black;
-    color: black;
-  }
-
+  //min-width: 50vw;
   border-spacing: 0;
 
+  thead {
+    background-color: ${props => props.theme.colours.primary.dark};
+    color: ${props => props.theme.colours.primary.light};
+  }
 
-
-
+  th {
+    height: 3rem;
+  }
+  
   td {
     padding: 15px 0;
     border-bottom: 2px solid black;
@@ -23,50 +24,35 @@ const Table = styled.table`
     img {
       margin: 10px;
     }
-
-  }
-
-  th {
-    height: 3rem;
   }
 
   th, td {
     padding-left: 15px;
+    padding-right: 50px;
   }
-
+  
   #clickable {
-
     cursor: pointer;
-
     transition: 0.2s all ease;
 
     &:hover {
       background-color: lightgray;
     }
   }
-
-  thead {
-
-
-
-
-    background-color: ${props => props.theme.colours.primary.dark};
-    color: ${props => props.theme.colours.primary.light};
-  }
-
-
 `
 
-interface StyledTableProps{
+interface StyledTableProps extends CustomComponentProps {
     children: ReactNode
 }
 
-const StyledTable = ({children} : StyledTableProps) => {
+const StyledTable = ({children, className} : StyledTableProps) => {
     return (
-        <Table>
+        <CustomTable className={className}>
             {children}
-        </Table>
+        </CustomTable>
     )
 }
 
-export default StyledTable
+const Table = styled(StyledTable)``
+
+export default Table

@@ -2,6 +2,7 @@ import {FirestoreService} from "./FirestoreService";
 import {Member, MemberConverter} from "../models/db/Members";
 import {FirebaseAdminService} from "./FirebaseAdminService";
 import {FirestoreCollection} from "../models/util/FirestoreCollection";
+import {AppUser} from "../models/db/AppUser";
 
 export class MemberService extends FirestoreService<Member> {
 
@@ -15,6 +16,14 @@ export class MemberService extends FirestoreService<Member> {
 
     async getAllMembers() {
         return await this.getDocs()
+    }
+
+    async updateMember(member: Member) {
+        return await this.updateDoc(member)
+    }
+
+    async removeMember(memberId: string) {
+        return this.deleteDoc(memberId);
     }
 
 }

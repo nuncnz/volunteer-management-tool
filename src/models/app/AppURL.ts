@@ -4,6 +4,7 @@ export enum AppURL {
     ADMIN_USERS = "/app/admin/users",
     ADMIN_MEMBERS = "/app/admin/members",
     ADMIN_MEMBERS_ADD = "/app/admin/members/add",
+    ADMIN_GROUPS = "/app/admin/groups",
     FINANCE = "/app/finance",
     HAUORA = "/app/hauora",
     ATTENDANCE = "/app/attendance",

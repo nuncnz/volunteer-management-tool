@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {MouseEventHandler} from "react";
+import {CustomComponentProps} from "../utils/CustomComponentProps";
 
 
 export enum ButtonSize {
@@ -7,26 +9,37 @@ export enum ButtonSize {
     LARGE
 }
 
-interface ButtonProps {
+interface ButtonProps extends CustomComponentProps {
     label: string
     size: ButtonSize
-    onClick: (click: any) => void
+    onClick:  MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-
 const StyledButton = styled.button<Pick<ButtonProps, 'size'>>`
-    
-    margin: 15px;
-    
+  padding: 10px;
+  
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: ${props => props.theme.colours.secondary.blue};
+  color: ${props => props.theme.colours.primary.light};
+  
+  transition: all 0.3s ease;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+  
 `
 
-const Button = ({label, size, onClick}: ButtonProps) => {
+const CustomButton = ({label, size, onClick, className}: ButtonProps) => {
 
     return (
-        <StyledButton size={size} onClick={() => onClick}>
+        <StyledButton size={size} onClick={onClick} className={className}>
             {label}
         </StyledButton>
     )
 }
+
+const Button = styled(CustomButton)``
 
 export default Button

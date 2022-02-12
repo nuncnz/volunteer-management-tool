@@ -3,15 +3,13 @@ import {VaccinationStatus} from "./VaccinationStatus";
 export enum UserScope {
 
     ADMIN = "ADMIN",
-    USER = "USER",
     HAUORA = "HAUORA",
     ATTENDANCE = "ATTENDANCE",
-    AUTHED = "AUTHED",
-    NONE = "NONE",
+    FINANCE = "FINANCE",
 
 }
 
-export const UserScopeList = [UserScope.ADMIN, UserScope.USER, UserScope.HAUORA, UserScope.ATTENDANCE, UserScope.AUTHED, UserScope.NONE]
+export const UserScopeList = [UserScope.ADMIN, UserScope.HAUORA, UserScope.ATTENDANCE, UserScope.FINANCE]
 
 export const getUserScopeText = (userScope: UserScope) : string => {
 
@@ -25,8 +23,8 @@ export const getUserScopeText = (userScope: UserScope) : string => {
         case UserScope.HAUORA:
             return "Huaora 🩺"
 
-        case UserScope.AUTHED:
-            return "Authed 🔐"
+        case UserScope.FINANCE:
+            return "Finance 💵"
 
         default:
             return userScope

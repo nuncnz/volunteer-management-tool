@@ -28,25 +28,35 @@ const StyledForm = styled.div`
     h3 {
       width: calc(100% - 2*10px);
     }
+    
+    
 
     margin: 20px 10px;
   }
   
-  button {
+  #checkboxes {
 
-    margin: 10px 10px;
+    margin: 20px 10px;
     
-    height: 40px;
-    width: 100px;
-    font-weight: bold;
-    border-radius: 15px;
-    
-    
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 1.2rem;
+      display: flex;
+      flex-direction: row;
+      
+      margin: 10px 0;
+      
+      input {
+        margin-right: 10px;
+      }
+      
+    }
   }
   
   > div {
-    margin-top: 100px;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 20px;
     border: 2px solid;
     width: 600px;
@@ -68,7 +78,7 @@ interface FormProps {
     children: ReactNode
 }
 
-const Form = ({children} : FormProps) => {
+const BaseForm = ({children} : FormProps) => {
 
     return (
         <StyledForm>
@@ -78,4 +88,4 @@ const Form = ({children} : FormProps) => {
 
 }
 
-export default Form
+export default BaseForm

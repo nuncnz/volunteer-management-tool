@@ -45,4 +45,8 @@ export class UserService extends FirestoreService<AppUser> {
     async updateUser(user: AppUser) {
         return await this.updateDoc(user)
     }
+
+    async removeUser(userId: string) {
+        return this.deleteDoc(userId);
+    }
 }
