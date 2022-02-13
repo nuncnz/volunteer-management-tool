@@ -11,8 +11,6 @@ import MemberForm from "../../../../components/forms/MemberForm";
 import styled from "styled-components";
 import Button, {ButtonSize} from "../../../../components/Button";
 import {useState} from "react";
-import {TypeFormWebhook, TypeFormWebhookResp} from "../../../../models/util/TypeFormWebhook";
-import {jsonStr} from "../../../../models/data";
 
 
 interface AdminMembersPageProps {
@@ -50,8 +48,6 @@ const AdminMembersPage = ({members} : AdminMembersPageProps) => {
 
         setSelectedMember(selectedMember)
     }
-
-    console.log(new TypeFormWebhook(jsonStr as TypeFormWebhookResp))
 
     return (
         <AppPage>

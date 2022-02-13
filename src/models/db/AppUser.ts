@@ -95,17 +95,18 @@ export const AppUserConverter : FirestoreDataConverter<AppUser> = {
 
     fromFirestore(snapshot: QueryDocumentSnapshot): AppUser {
         const data = snapshot.data()
-        // @ts-ignore
-        return {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            primaryEmail: data.primaryEmail,
-            id: data.id,
-            secondaryEmail: data.secondaryEmail,
-            googleUid: data.googleUid,
-            scope: data.scope,
-            picture: data.picture
-        }
+        return new AppUser(
+            {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                primaryEmail: data.primaryEmail,
+                id: data.id,
+                secondaryEmail: data.secondaryEmail,
+                googleUid: data.googleUid,
+                scope: data.scope,
+                picture: data.picture
+            }
+        )
     }
 
 

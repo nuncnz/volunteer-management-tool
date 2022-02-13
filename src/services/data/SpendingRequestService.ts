@@ -1,12 +1,25 @@
 import {FirestoreService} from "./FirestoreService";
-import {SpendingRequest} from "../../models/db/SpendingRequest";
+import {SpendingRequest, SpendingRequestConverter} from "../../models/db/SpendingRequest";
 import {FirebaseAdminService} from "../firebase/FirebaseAdminService";
 import {FirestoreCollection} from "../../models/util/FirestoreCollection";
 
-class SpendingRequestService extends FirestoreService<SpendingRequest> {
+export class SpendingRequestService extends FirestoreService<SpendingRequest> {
 
     constructor(firebaseAdminService: FirebaseAdminService) {
-        super(firebaseAdminService, FirestoreCollection.SPENDING_REQUESTS, Spen);
+        super(firebaseAdminService, FirestoreCollection.SPENDING_REQUESTS, SpendingRequestConverter);
     }
+
+    async addSpendingRequest(spendingRequest: SpendingRequest) {
+        return await super.addDoc(spendingRequest)
+    }
+
+    async updateSpendingRequest(spendingRequest: SpendingRequest) {
+        return await this.updateDoc(spendingRequest)
+    }
+
+    async removeSpendingRequest(id: string) {
+        return this.deleteDoc(id);
+    }
+
 
 }
