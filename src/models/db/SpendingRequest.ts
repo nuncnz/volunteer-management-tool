@@ -11,63 +11,63 @@ interface SpendingRequestProps {
     /**
      * The email of the person making the spending request
      */
-    submitter: string
+    submitter: string | null
 
     /**
      * The number of approvers required to approve this spending request.
      */
-    requiredApprovers: number
+    requiredApprovers: number | null
 
     /**
      * The approvals of this spending request
      */
-    approvals?: SpendingRequestApproval[] | [null]
+    approvals?: SpendingRequestApproval[] | [null] | null
 
     /**
      * The budget where the spending is approved
      */
-    budget: string
+    budget: string | null
 
     /**
      * The amount of spending that is required
      */
-    amount: string
+    amount: string | null
 
     /**
      * Does the spending include GST
      */
-    gstInclusive: boolean
+    gstInclusive: boolean | null
 
 
     /**
      * The date the money has to be spent by
      */
-    date: string
+    date: string | null
 
     /**
      * The reason the spending needs to take place.
      */
-    spendingReason: string
+    spendingReason: string | null
 
     /**
      * How the spending should take place.
      */
-    spendingDetails: string
+    spendingDetails: string | null
 
     /**
      * The URL of an uploaded supporting document
      */
-    doc: string
+    doc: string | null
 
     /**
      * The URL for extra information provider by the [submitter]
      */
-    link: string
+    link: string | null
 
     /**
      * The timestamp for when the request was made
      */
-    submitTimeStamp: number
+    submitTimeStamp: number | null
 }
 
 interface SpendingRequestApproval {
@@ -93,77 +93,77 @@ export class SpendingRequest implements DataModel<SpendingRequest>{
     /**
      * The email of the person making the spending request
      */
-    submitter: string
+    submitter: string | null
 
     /**
      * The number of approvers required to approve this spending request.
      */
-    requiredApprovers: number
+    requiredApprovers: number | null
 
     /**
      * The approvals of this spending request
      */
-    approvals: SpendingRequestApproval[] | [null]
+    approvals: SpendingRequestApproval[] | [null] | null
 
     /**
      * The budget where the spending is approved
      */
-    budget: string
+    budget: string | null
 
     /**
      * The amount of spending that is required
      */
-    amount: string
+    amount: string | null
 
     /**
      * Does the spending include GST
      */
-    gstInclusive: boolean
+    gstInclusive: boolean | null
 
 
     /**
      * The date the money has to be spent by
      */
-    date: string
+    date: string | null
 
     /**
      * The reason the spending needs to take place.
      */
-    spendingReason: string
+    spendingReason: string | null
 
     /**
      * How the spending should take place.
      */
-    spendingDetails: string
+    spendingDetails: string | null
 
     /**
      * The URL of an uploaded supporting document
      */
-    doc: string
+    doc: string | null
 
     /**
      * The URL for extra information provider by the [submitter]
      */
-    link: string
+    link: string | null
 
     /**
      * The timestamp for when the request was made
      */
-    submitTimeStamp: number
+    submitTimeStamp: number | null
 
     constructor(spendingRequest: SpendingRequestProps) {
         this.id = spendingRequest.id || null
-        this.submitter = spendingRequest.submitter
-        this.budget = spendingRequest.budget
-        this.amount = spendingRequest.amount
-        this.gstInclusive = spendingRequest.gstInclusive
-        this.date = spendingRequest.date
-        this.spendingReason = spendingRequest.spendingReason
-        this.spendingDetails = spendingRequest.spendingDetails
-        this.doc = spendingRequest.doc
-        this.link = spendingRequest.link
+        this.submitter = spendingRequest.submitter || null
+        this.budget = spendingRequest.budget || null
+        this.amount = spendingRequest.amount || null
+        this.gstInclusive = spendingRequest.gstInclusive || null
+        this.date = spendingRequest.date || null
+        this.spendingReason = spendingRequest.spendingReason || null
+        this.spendingDetails = spendingRequest.spendingDetails || null
+        this.doc = spendingRequest.doc || null
+        this.link = spendingRequest.link || null
         this.submitTimeStamp = spendingRequest.submitTimeStamp || now()
-        this.requiredApprovers = spendingRequest.requiredApprovers
+        this.requiredApprovers = spendingRequest.requiredApprovers || null
         this.approvals = spendingRequest.approvals || [null]
     }
 }

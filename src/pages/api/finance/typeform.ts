@@ -18,13 +18,13 @@ const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
 
     const body = req.body as TypeFormWebhook
 
-    const findAnswer = <T>(ref: string) : T => {
+    const findAnswer = <T>(ref: string) : T | null => {
         const res = body.form_response.answers.find((answer) => {
             return answer.field.ref == ref
         })
 
         // @ts-ignore
-        return res["string"]
+        return res[ref] || null
 
     }
 
