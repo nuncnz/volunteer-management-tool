@@ -23,8 +23,13 @@ const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
             return answer.field.ref == ref
         })
 
-        // @ts-ignore
-        return res[ref] || null
+        try {
+            // @ts-ignore
+            return res[ref] || null
+        } catch {
+            return null
+        }
+
 
     }
 
