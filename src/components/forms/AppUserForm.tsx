@@ -5,7 +5,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Button, {ButtonSize} from "../Button";
 import styled from "styled-components";
-import {CustomComponentProps} from "../../utils/CustomComponentProps";
+import {CustomComponentProps} from "../../models/app/CustomComponentProps";
 
 interface UserFormProps extends CustomComponentProps {
     appUser?: AppUser | null

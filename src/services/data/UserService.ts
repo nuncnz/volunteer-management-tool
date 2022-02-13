@@ -1,8 +1,8 @@
 import {FirestoreService} from "./FirestoreService";
-import {FirebaseAdminService} from "./FirebaseAdminService";
-import {AppUser, AppUserConverter} from "../models/db/AppUser";
-import {FirestoreCollection} from "../models/util/FirestoreCollection";
-import {Query} from "../models/util/Query";
+import {FirebaseAdminService} from "../firebase/FirebaseAdminService";
+import {AppUser, AppUserConverter} from "../../models/db/AppUser";
+import {FirestoreCollection} from "../../models/util/FirestoreCollection";
+import {Query} from "../../models/util/Query";
 
 export class UserService extends FirestoreService<AppUser> {
 

@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import {AuthProvider} from "../components/providers/AuthProvider";
-import FirebaseClientService from "../services/FirebaseClientService";
+import FirebaseClientService from "../services/firebase/FirebaseClientService";
 import GlobalStyle from "../styles/GlobalStyle";
 import {theme} from "../styles/theme";
 import {ThemeProvider} from "styled-components";

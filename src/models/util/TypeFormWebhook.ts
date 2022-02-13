@@ -1,4 +1,4 @@
-export interface TypeFormWebhookResp {
+export interface TypeFormWebhook {
 
     /**
      * Unique ID for the webhook. Automatically assigned by Typeform.
@@ -38,26 +38,26 @@ export interface TypeFormWebhookResp {
     }
 
 }
-
-export class TypeFormWebhook {
-
-    event_id: string
-
-    event_type: string
-
-    answers : {
-        answer: any
-        ref: string
-    }[]
-
-    constructor(test: TypeFormWebhookResp) {
-        this.event_id = test.event_id
-        this.event_type = test.event_type
-
-        this.answers = []
-        test.form_response.answers.forEach((answer) => {
-            // @ts-ignore
-            this.answers.push({answer: answer[answer.type], ref: answer.field.ref})
-        })
-    }
-}
+//
+// export class TypeFormWebhook {
+//
+//     event_id: string
+//
+//     event_type: string
+//
+//     answers : {
+//         answer: any
+//         ref: string
+//     }[]
+//
+//     constructor(test: TypeFormWebhookResp) {
+//         this.event_id = test.event_id
+//         this.event_type = test.event_type
+//
+//         this.answers = []
+//         test.form_response.answers.forEach((answer) => {
+//             // @ts-ignore
+//             this.answers.push({answer: answer[answer.type], ref: answer.field.ref})
+//         })
+//     }
+// }

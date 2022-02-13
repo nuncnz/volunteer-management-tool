@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {ReactNode} from "react";
-import {CustomComponentProps} from "../../utils/CustomComponentProps";
+import {CustomComponentProps} from "../../models/app/CustomComponentProps";
 
 const CustomTable = styled.table`
 

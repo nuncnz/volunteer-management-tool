@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {UserService} from "../../../services/UserService";
-import {FirebaseAdminService} from "../../../services/FirebaseAdminService";
+import {UserService} from "../../../services/data/UserService";
+import {FirebaseAdminService} from "../../../services/firebase/FirebaseAdminService";
 import {AppUser} from "../../../models/db/AppUser";
 
 

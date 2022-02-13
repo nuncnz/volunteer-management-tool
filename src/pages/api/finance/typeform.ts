@@ -1,14 +1,11 @@
 import {NextApiHandler, NextApiRequest, NextApiResponse} from "next";
-import {TypeFormWebhook, TypeFormWebhookResp} from "../../../models/util/TypeFormWebhook";
+import {TypeFormWebhook} from "../../../models/util/TypeFormWebhook";
+import {SpendingRequest} from "../../../models/db/SpendingRequest";
 
 
 const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const webhook = new TypeFormWebhook(req.body as TypeFormWebhookResp)
-
-    console.log(webhook)
-
-    res.status(200).send(null)
+    const body = req.body as TypeFormWebhook
 
 }
 

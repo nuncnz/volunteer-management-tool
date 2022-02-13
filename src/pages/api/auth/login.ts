@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {FirebaseAdminService} from "../../../services/FirebaseAdminService";
-import {UserService} from "../../../services/UserService";
+import {FirebaseAdminService} from "../../../services/firebase/FirebaseAdminService";
+import {UserService} from "../../../services/data/UserService";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const token : string = JSON.parse(req.body).token

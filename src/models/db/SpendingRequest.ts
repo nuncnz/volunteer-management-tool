@@ -1,3 +1,5 @@
+import firebase from "firebase/compat";
+import FirestoreDataConverter = firebase.firestore.FirestoreDataConverter;
 
 export class SpendingRequest {
 
@@ -75,6 +77,22 @@ export class SpendingRequest {
         this.submitTimeStamp = spendingRequest.submitTimeStamp
         this.requiredApprovers = spendingRequest.requiredApprovers
         this.approvers = spendingRequest.approvers
+    }
+}
+
+export const SpendingRequestConverter : FirestoreDataConverter<SpendingRequest> = {
+
+    toFirestore(modelObject: SpendingRequest): firebase.firestore.DocumentData {
+        return {
+            modelObject
+        }
+    },
+
+    fromFirestore(snapshot: firebase.firestore.QueryDocumentSnapshot,
+                  options: firebase.firestore.SnapshotOptions): SpendingRequest {
+        const data = snapshot.data()
+        return {data}
+
     }
 
 }

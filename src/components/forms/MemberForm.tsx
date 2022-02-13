@@ -5,7 +5,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {Member} from "../../models/db/Members";
 import styled from "styled-components";
 import Button, {ButtonSize} from "../Button";
-import {CustomComponentProps} from "../../utils/CustomComponentProps";
+import {CustomComponentProps} from "../../models/app/CustomComponentProps";
 
 interface MemberFormProps extends CustomComponentProps {
     member?: Member | null
