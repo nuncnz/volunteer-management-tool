@@ -2,57 +2,67 @@ import {DataModel} from "../util/DataModel";
 import {FirestoreDataConverter, DocumentData, QueryDocumentSnapshot} from "firebase-admin/firestore";
 import {now} from "lodash";
 
-interface SpendingRequestProps {
+interface SpendingRequestProps extends DataModel<SpendingRequest>{
     /**
      * A unique identifier for each spending request
      */
-    id?: string | null
+    id?: string
 
     /**
      * The email of the person making the spending request
      */
-    submitter: string | null
+    submitter: string
 
     /**
      * The number of approvers required to approve this spending request.
      */
-    requiredApprovers: number | null
+    requiredApprovers: number
 
     /**
      * The approvals of this spending request
      */
-    approvals?: SpendingRequestApproval[] | [null] | null
+    approvals?: SpendingRequestApproval[] | [null]
 
     /**
      * The budget where the spending is approved
      */
-    budget: string | null
+    budget: string
 
     /**
      * The amount of spending that is required
      */
-    amount: string | null
+    amount: string
+
+    /**
+     * The amount of spending that is required as a number
+     */
+    numberAmount?: number | null
+
+    /**
+     * The amount of GST included in the spending
+     */
+    gstAmount?: number | null
 
     /**
      * Does the spending include GST
      */
-    gstInclusive: boolean | null
+    gstInclusive: boolean
 
 
     /**
      * The date the money has to be spent by
      */
-    date: string | null
+    date: string
 
     /**
      * The reason the spending needs to take place.
      */
-    spendingReason: string | null
+    spendingReason: string
 
     /**
      * How the spending should take place.
      */
-    spendingDetails: string | null
+    spendingDetails: string
 
     /**
      * The URL of an uploaded supporting document
@@ -67,112 +77,79 @@ interface SpendingRequestProps {
     /**
      * The timestamp for when the request was made
      */
-    submitTimeStamp: number | null
+    submitTimeStamp: number
 }
 
 interface SpendingRequestApproval {
     /**
      * The email of the approver
      */
-    email: string
+    email: string | null
 
     /**
      * THe timestamp at which the approval took place
      */
-    timestamp: string
+    timestamp: string | null
 }
 
 
-export class SpendingRequest implements DataModel<SpendingRequest>{
+export class SpendingRequest implements SpendingRequestProps {
 
-    /**
-     * A unique identifier for each spending request
-     */
-    id: string | null
-
-    /**
-     * The email of the person making the spending request
-     */
-    submitter: string | null
-
-    /**
-     * The number of approvers required to approve this spending request.
-     */
-    requiredApprovers: number | null
-
-    /**
-     * The approvals of this spending request
-     */
-    approvals: SpendingRequestApproval[] | [null] | null
-
-    /**
-     * The budget where the spending is approved
-     */
-    budget: string | null
-
-    /**
-     * The amount of spending that is required
-     */
-    amount: string | null
-
-    /**
-     * Does the spending include GST
-     */
-    gstInclusive: boolean | null
-
-
-    /**
-     * The date the money has to be spent by
-     */
-    date: string | null
-
-    /**
-     * The reason the spending needs to take place.
-     */
-    spendingReason: string | null
-
-    /**
-     * How the spending should take place.
-     */
-    spendingDetails: string | null
-
-    /**
-     * The URL of an uploaded supporting document
-     */
-    doc: string | null
-
-    /**
-     * The URL for extra information provider by the [submitter]
-     */
-    link: string | null
-
-    /**
-     * The timestamp for when the request was made
-     */
-    submitTimeStamp: number | null
+    amount: string;
+    approvals: SpendingRequestApproval[] | [null];
+    budget: string;
+    date: string;
+    doc: string | null;
+    gstInclusive: boolean;
+    id: string;
+    link: string | null;
+    requiredApprovers: number;
+    spendingDetails: string;
+    spendingReason: string;
+    submitTimeStamp: number;
+    submitter: string;
+    numberAmount: number | null;
+    gstAmount: number | null;
 
     constructor(spendingRequest: SpendingRequestProps) {
-        this.id = spendingRequest.id || null
-        this.submitter = spendingRequest.submitter || null
-        this.budget = spendingRequest.budget || null
-        this.amount = spendingRequest.amount || null
-        this.gstInclusive = spendingRequest.gstInclusive || null
-        this.date = spendingRequest.date || null
-        this.spendingReason = spendingRequest.spendingReason || null
-        this.spendingDetails = spendingRequest.spendingDetails || null
-        this.doc = spendingRequest.doc || null
-        this.link = spendingRequest.link || null
+        this.id = spendingRequest.id || ""
+        this.submitter = spendingRequest.submitter || ""
+        this.budget = spendingRequest.budget || ""
+        this.amount = spendingRequest.amount || ""
+        this.gstInclusive = spendingRequest.gstInclusive
+        this.date = spendingRequest.date || ""
+        this.spendingReason = spendingRequest.spendingReason || ""
+        this.spendingDetails = spendingRequest.spendingDetails || ""
+        this.doc = spendingRequest.doc || ""
+        this.link = spendingRequest.link || ""
         this.submitTimeStamp = spendingRequest.submitTimeStamp || now()
-        this.requiredApprovers = spendingRequest.requiredApprovers || null
-        this.approvals = spendingRequest.approvals || [null]
+        this.requiredApprovers = spendingRequest.requiredApprovers || 2
+        this.approvals = spendingRequest.approvals || []
+        this.numberAmount = parseFloat(spendingRequest.amount)
+        this.gstAmount = this.numberAmount - (this.numberAmount / 1.15)
     }
 }
+
 
 export const SpendingRequestConverter : FirestoreDataConverter<SpendingRequest> = {
 
     toFirestore(modelObject: SpendingRequest): DocumentData {
         return {
-            modelObject
+            id: modelObject.id,
+            submitter: modelObject.submitter,
+            budget: modelObject.budget,
+            amount: modelObject.amount,
+            gstInclusive: modelObject.gstInclusive,
+            date: modelObject.date,
+            spendingReason: modelObject.spendingReason,
+            spendingDetails: modelObject.spendingDetails,
+            doc: modelObject.doc,
+            link: modelObject.link,
+            submitTimeStamp: modelObject.submitTimeStamp,
+            requiredApprovers: modelObject.requiredApprovers,
+            approvals: modelObject.approvals,
+            numberAmount: modelObject.numberAmount,
+            gstAmount: modelObject.gstAmount
         }
     },
 
@@ -180,6 +157,8 @@ export const SpendingRequestConverter : FirestoreDataConverter<SpendingRequest> 
         const data = snapshot.data()
         return new SpendingRequest(
             {
+                gstAmount: data.gstAmount,
+                numberAmount: data.numberAmount,
                 id: data.id,
                 submitter: data.submitter,
                 budget: data.budget,
@@ -196,6 +175,4 @@ export const SpendingRequestConverter : FirestoreDataConverter<SpendingRequest> 
             }
         )
     }
-
-
 }

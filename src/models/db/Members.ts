@@ -76,15 +76,18 @@ export const MemberConverter : FirestoreDataConverter<Member> = {
             primaryEmail: modelObject.primaryEmail,
             secondaryEmail: modelObject.secondaryEmail,
             dateOfBirth: modelObject.dateOfBirth,
-            vaccinationStatus: modelObject.vaccinationStatus
+            vaccinationStatus: modelObject.vaccinationStatus,
+            googleUid: modelObject.googleUid,
+            picture: modelObject.picture,
         }
 
     },
 
     fromFirestore(snapshot: QueryDocumentSnapshot): Member {
         const data = snapshot.data()
-        // @ts-ignore
-        return {
+        return new Member({
+            googleUid: data.googleUid,
+            picture: data.picture,
             firstName: data.firstName,
             lastName: data.lastName,
             primaryEmail: data.primaryEmail,
@@ -92,6 +95,6 @@ export const MemberConverter : FirestoreDataConverter<Member> = {
             secondaryEmail: data.secondaryEmail,
             dateOfBirth: data.dateOfBirth,
             vaccinationStatus: data.vaccinationStatus
-        }
+        })
     }
 }

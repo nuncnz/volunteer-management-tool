@@ -21,5 +21,9 @@ export class SpendingRequestService extends FirestoreService<SpendingRequest> {
         return this.deleteDoc(id);
     }
 
+    async getAllSpendingRequests() {
+        return this.getDocs()
+    }
+
 
 }

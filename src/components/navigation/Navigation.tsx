@@ -75,7 +75,11 @@ const Navigation : FC = () => {
         new NavLinkData(AppURL.ADMIN_GROUPS, "Groups")
     ]
 
-    const attendance = [
+    const finance = [
+        new NavLinkData(AppURL.FINANCE_SPENDING_REQUESTS, "Spending Requests"),
+    ]
+
+    const attendance= [
         new NavLinkData(AppURL.ATTENDANCE_EVENTS, "Events"),
     ]
 
@@ -92,6 +96,10 @@ const Navigation : FC = () => {
 
         case pathname.includes(AppURL.ATTENDANCE):
             subNav = SubNavigation(pathname, attendance)
+            break
+
+        case pathname.includes(AppURL.FINANCE):
+            subNav = SubNavigation(pathname, finance)
             break
     }
 

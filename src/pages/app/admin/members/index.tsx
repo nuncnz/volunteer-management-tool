@@ -11,6 +11,7 @@ import MemberForm from "../../../../components/forms/MemberForm";
 import styled from "styled-components";
 import Button, {ButtonSize} from "../../../../components/Button";
 import {useState} from "react";
+import classToDto from "../../../../utils/ClassToDto";
 
 
 interface AdminMembersPageProps {
@@ -88,7 +89,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
         props: {
-            members: members
+            members: classToDto(members)
         }
     }
 }

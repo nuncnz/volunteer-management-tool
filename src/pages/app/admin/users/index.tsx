@@ -11,6 +11,7 @@ import styled from "styled-components";
 import AppUserForm from "../../../../components/forms/AppUserForm";
 import {useState} from "react";
 import Table from "../../../../components/tables/StyledTable";
+import classToDto from "../../../../utils/ClassToDto";
 
 interface UsersPageProps {
     users: AppUser[]
@@ -89,7 +90,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
         props: {
-            users: users
+            users: classToDto(users)
         }
     }
 }
