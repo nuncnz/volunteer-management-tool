@@ -1,11 +1,11 @@
-import {VaccinationStatus} from "../../models/db/sub-types/VaccinationStatus";
+import {VaccinationStatus} from "../../models/member/VaccinationStatus";
 import BaseForm from "./BaseForm";
 import {useRouter} from "next/router";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {Member} from "../../models/db/Members";
+import {Member} from "../../models/member/Member";
 import styled from "styled-components";
 import Button, {ButtonSize} from "../Button";
-import {CustomComponentProps} from "../../models/app/CustomComponentProps";
+import {CustomComponentProps} from "../CustomComponentProps";
 
 interface MemberFormProps extends CustomComponentProps {
     member?: Member | null

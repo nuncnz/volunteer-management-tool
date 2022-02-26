@@ -1,8 +1,8 @@
 import {FirestoreDataConverter, DocumentData, QueryDocumentSnapshot} from "firebase-admin/firestore";
-import {DataModel} from "../util/DataModel";
-import {UserScope} from "./sub-types/UserScope";
+import {DataModel} from "../firestore/DataModel";
+import {UserScope} from "./UserScope";
 
-export class AppUser implements DataModel<AppUser> {
+export class User implements DataModel<User> {
 
     /**
      * The [User]'s id in the DB
@@ -73,42 +73,6 @@ export class AppUser implements DataModel<AppUser> {
             picture: this.picture
         }
     }
-
-}
-
-export const AppUserConverter : FirestoreDataConverter<AppUser> = {
-
-    toFirestore(modelObject: AppUser): DocumentData {
-
-        return {
-            id: modelObject.id,
-            firstName: modelObject.firstName,
-            lastName: modelObject.lastName,
-            primaryEmail: modelObject.primaryEmail,
-            secondaryEmail: modelObject.secondaryEmail,
-            googleUid: modelObject.googleUid,
-            scope: modelObject.scope,
-            picture: modelObject.picture
-        }
-
-    },
-
-    fromFirestore(snapshot: QueryDocumentSnapshot): AppUser {
-        const data = snapshot.data()
-        return new AppUser(
-            {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                primaryEmail: data.primaryEmail,
-                id: data.id,
-                secondaryEmail: data.secondaryEmail,
-                googleUid: data.googleUid,
-                scope: data.scope,
-                picture: data.picture
-            }
-        )
-    }
-
 
 }
 

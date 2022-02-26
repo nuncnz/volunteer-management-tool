@@ -1,7 +1,7 @@
 import {firestore} from "firebase-admin";
 import FirestoreDataConverter = firestore.FirestoreDataConverter;
-import {MemberGroup} from "./MemberGroup";
-import {UserService} from "../../services/data/UserService";
+import {MemberGroup} from "../member-group/MemberGroup";
+import {UserService} from "../user/UserService";
 
 export class AttendanceEvent {
 

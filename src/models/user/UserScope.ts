@@ -1,4 +1,4 @@
-import {VaccinationStatus} from "./VaccinationStatus";
+import {VaccinationStatus} from "../member/VaccinationStatus";
 
 export enum UserScope {
 

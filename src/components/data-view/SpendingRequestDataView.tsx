@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {CustomComponentProps} from "../../models/app/CustomComponentProps";
-import {SpendingRequest} from "../../models/db/SpendingRequest";
+import {CustomComponentProps} from "../CustomComponentProps";
+import {SpendingRequest} from "../../models/spending-request/SpendingRequest";
 import Button, {ButtonSize} from "../Button";
 
 
@@ -67,7 +67,7 @@ const DataView = ({spendingRequest} : SpendingRequestDataViewProps) => {
                 </div>
                 <div id={"data"}>
                     <h3>Amount</h3>
-                    <h4>${spendingRequest.amount}</h4>
+                    <h4>${spendingRequest.amountString}</h4>
                 </div>
                 <div id={"data"}>
                     <h3>GST</h3>

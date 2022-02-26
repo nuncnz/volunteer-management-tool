@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {MouseEventHandler} from "react";
-import {CustomComponentProps} from "../models/app/CustomComponentProps";
+import {CustomComponentProps} from "./CustomComponentProps";
 
 
 export enum ButtonSize {

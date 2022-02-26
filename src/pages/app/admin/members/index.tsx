@@ -1,17 +1,17 @@
 import {GetServerSidePropsContext} from "next";
-import {FirebaseAdminService} from "../../../../services/firebase/FirebaseAdminService";
+import {FirebaseAdminService} from "../../../../models/firestore/FirebaseAdminService";
 import AppPage from "../../../../components/pages/AppPage";
-import {MemberService} from "../../../../services/data/MemberService";
-import {Member} from "../../../../models/db/Members";
+import {MemberService} from "../../../../models/member/MemberService";
+import {Member} from "../../../../models/member/Member";
 import {useRouter} from "next/router";
 import StyledTable from "../../../../components/tables/StyledTable";
 import Table from "../../../../components/tables/StyledTable";
-import {getVaccinationStatusText} from "../../../../models/db/sub-types/VaccinationStatus";
+import {getVaccinationStatusText} from "../../../../models/member/VaccinationStatus";
 import MemberForm from "../../../../components/forms/MemberForm";
 import styled from "styled-components";
 import Button, {ButtonSize} from "../../../../components/Button";
 import {useState} from "react";
-import classToDto from "../../../../utils/ClassToDto";
+import classToDto from "../../../../components/ClassToDto";
 
 
 interface AdminMembersPageProps {

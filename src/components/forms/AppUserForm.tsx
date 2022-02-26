@@ -1,15 +1,15 @@
-import {AppUser} from "../../models/db/AppUser";
-import {getUserScopeText, UserScope, UserScopeList} from "../../models/db/sub-types/UserScope";
+import {User} from "../../models/user/User";
+import {getUserScopeText, UserScope, UserScopeList} from "../../models/user/UserScope";
 import BaseForm from "./BaseForm";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Button, {ButtonSize} from "../Button";
 import styled from "styled-components";
-import {CustomComponentProps} from "../../models/app/CustomComponentProps";
+import {CustomComponentProps} from "../CustomComponentProps";
 
 interface UserFormProps extends CustomComponentProps {
-    appUser?: AppUser | null
-    appUserSetState:  Dispatch<SetStateAction<AppUser | null>>
+    appUser?: User | null
+    appUserSetState:  Dispatch<SetStateAction<User | null>>
 }
 
 const UserForm = ({appUser = null, appUserSetState} : UserFormProps) => {
@@ -43,7 +43,7 @@ const UserForm = ({appUser = null, appUserSetState} : UserFormProps) => {
             return
         }
 
-        const userObj = new AppUser({
+        const userObj = new User({
                                         firstName: firstName,
                                         lastName: lastName,
                                         primaryEmail: primaryEmail,

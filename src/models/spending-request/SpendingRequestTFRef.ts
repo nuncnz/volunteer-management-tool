@@ -1,4 +1,4 @@
-export enum TypeFormReference {
+export enum SpendingRequestTFRef {
     FORM_START = "start",
     EMAIL = "email",
     BUDGET = "project",

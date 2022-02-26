@@ -1,7 +1,7 @@
-import {DataModel} from "../util/DataModel";
-import {UserScope} from "./sub-types/UserScope";
+import {DataModel} from "../firestore/DataModel";
+import {UserScope} from "../user/UserScope";
 import {DocumentData, FirestoreDataConverter, QueryDocumentSnapshot} from "firebase-admin/lib/firestore";
-import {VaccinationStatus} from "./sub-types/VaccinationStatus";
+import {VaccinationStatus} from "./VaccinationStatus";
 
 export class Member implements DataModel<Member>{
 
@@ -31,10 +31,10 @@ export class Member implements DataModel<Member>{
      */
     secondaryEmail: string | null
 
-
-
+    /**
+     * The member's date of birth.
+     */
     dateOfBirth: string
-
 
     vaccinationStatus: VaccinationStatus
 
@@ -62,39 +62,5 @@ export class Member implements DataModel<Member>{
         this.vaccinationStatus = member.vaccinationStatus
         this.googleUid = member.googleUid || null
         this.picture = member.picture || null
-    }
-}
-
-export const MemberConverter : FirestoreDataConverter<Member> = {
-
-    toFirestore(modelObject: Member): DocumentData {
-
-        return {
-            id: modelObject.id,
-            firstName: modelObject.firstName,
-            lastName: modelObject.lastName,
-            primaryEmail: modelObject.primaryEmail,
-            secondaryEmail: modelObject.secondaryEmail,
-            dateOfBirth: modelObject.dateOfBirth,
-            vaccinationStatus: modelObject.vaccinationStatus,
-            googleUid: modelObject.googleUid,
-            picture: modelObject.picture,
-        }
-
-    },
-
-    fromFirestore(snapshot: QueryDocumentSnapshot): Member {
-        const data = snapshot.data()
-        return new Member({
-            googleUid: data.googleUid,
-            picture: data.picture,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            primaryEmail: data.primaryEmail,
-            id: data.id,
-            secondaryEmail: data.secondaryEmail,
-            dateOfBirth: data.dateOfBirth,
-            vaccinationStatus: data.vaccinationStatus
-        })
     }
 }

@@ -1,55 +1,44 @@
 import {NextApiHandler, NextApiRequest, NextApiResponse} from "next";
-import {TypeFormWebhook} from "../../../models/util/TypeFormWebhook";
-import {SpendingRequest} from "../../../models/db/SpendingRequest";
-import {TypeFormReference} from "../../../models/util/TypeFormReference";
+import {TypeFormWebhook, TypeFormWebhookProps} from "../../../models/typeform/TypeFormWebhook";
+import {SpendingRequest} from "../../../models/spending-request/SpendingRequest";
+import {SpendingRequestTFRef} from "../../../models/spending-request/SpendingRequestTFRef";
 import {now} from "lodash";
-import {SpendingRequestService} from "../../../services/data/SpendingRequestService";
-import {FirebaseAdminService} from "../../../services/firebase/FirebaseAdminService";
+import {SpendingRequestService} from "../../../models/spending-request/SpendingRequestService";
+import {FirebaseAdminService} from "../../../models/firestore/FirebaseAdminService";
 
-interface Answers {
-    email: string,
-}
-
+/**
+ * Handles `/api/finance/typeform`
+ *
+ * Creates a spending request given the correct Typeform parameters.
+ */
 const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const service = new SpendingRequestService(new FirebaseAdminService())
+    // The service used to access the spending request data.
+    const spendingRequestService = new SpendingRequestService(new FirebaseAdminService())
 
-    const body = req.body as TypeFormWebhook
-
-    const findAnswer = <T>(ref: string) : T => {
-        const resp = body.form_response.answers.find((answer) => {
-            return answer.field.ref == ref
-        })
-
-        if (resp!!.type != "choice") {
-            // @ts-ignore
-            return resp[resp.type] as T
-        } else {
-            // @ts-ignore
-            return resp[resp.type].label as T
-        }
-
-    }
+    const webhook = new TypeFormWebhook(req.body as TypeFormWebhookProps)
 
     const request = new SpendingRequest({
-                                            amount: findAnswer(TypeFormReference.AMOUNT) || "",
-                                            date: findAnswer(TypeFormReference.DATE) || "",
-                                            doc: findAnswer(TypeFormReference.DOCS) || "",
-                                            gstInclusive: findAnswer(TypeFormReference.GST) || false,
-                                            link: findAnswer(TypeFormReference.LINKS) || "",
-                                            requiredApprovers: 2,
-                                            spendingDetails: findAnswer(TypeFormReference.SPENDING_DETAILS) || "",
-                                            spendingReason: findAnswer(TypeFormReference.REASON) || "",
+                                            amount: webhook.findAnswer(SpendingRequestTFRef.AMOUNT)!!,
+                                            date: webhook.findAnswer(SpendingRequestTFRef.DATE)!!,
+                                            doc: webhook.findAnswer(SpendingRequestTFRef.DOCS),
+                                            link: webhook.findAnswer(SpendingRequestTFRef.LINKS),
+                                            gstInclusive: webhook.findAnswer(SpendingRequestTFRef.GST)!!,
+                                            spendingDetails: webhook.findAnswer(SpendingRequestTFRef.SPENDING_DETAILS)!!,
+                                            spendingReason: webhook.findAnswer(SpendingRequestTFRef.REASON)!!,
                                             submitTimeStamp: now(),
-                                            submitter: findAnswer(TypeFormReference.EMAIL) || "",
-                                            budget: findAnswer(TypeFormReference.BUDGET) || findAnswer(TypeFormReference.BUDGET_CUSTOM) || "",
+                                            submitter: webhook.findAnswer(SpendingRequestTFRef.EMAIL)!!,
+                                            budget:
+                                                webhook.findAnswer(SpendingRequestTFRef.BUDGET) ||
+                                                webhook.findAnswer(SpendingRequestTFRef.BUDGET_CUSTOM) ||
+                                                null
                                         })
 
-    await service.addSpendingRequest(request).then((resp) => {
+    await spendingRequestService.addSpendingRequest(request).then((resp) => {
         if (resp != undefined) {
             res.status(200).send(resp)
         } else {
-            res.status(500).send(null)
+            res.status(500).send(resp)
         }
     })
 

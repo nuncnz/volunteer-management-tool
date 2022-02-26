@@ -1,13 +1,14 @@
-import {FirestoreService} from "./FirestoreService";
-import {Member, MemberConverter} from "../../models/db/Members";
-import {FirebaseAdminService} from "../firebase/FirebaseAdminService";
-import {FirestoreCollection} from "../../models/util/FirestoreCollection";
-import {AppUser} from "../../models/db/AppUser";
+import {FirestoreService} from "../firestore/FirestoreService";
+import {Member} from "./Member";
+import {FirebaseAdminService} from "../firestore/FirebaseAdminService";
+import {FirestoreCollection} from "../firestore/FirestoreCollection";
+import {User} from "../user/User";
+import {dataConverter} from "../firestore/DataConverter";
 
 export class MemberService extends FirestoreService<Member> {
 
     constructor(firebaseAdminService: FirebaseAdminService) {
-        super(firebaseAdminService, FirestoreCollection.MEMBERS, MemberConverter);
+        super(firebaseAdminService, FirestoreCollection.MEMBERS, dataConverter<Member>());
     }
 
     async addMember(member: Member) {

@@ -1,11 +1,11 @@
 import {GetServerSideProps, GetServerSidePropsContext} from "next";
-import {UserService} from "../../services/data/UserService";
-import {FirebaseAdminService} from "../../services/firebase/FirebaseAdminService";
-import {AppUser} from "../../models/db/AppUser";
+import {UserService} from "../../models/user/UserService";
+import {FirebaseAdminService} from "../../models/firestore/FirebaseAdminService";
+import {User} from "../../models/user/User";
 import AppPage from "../../components/pages/AppPage";
 
 interface ProfilePageProps {
-    user: AppUser
+    user: User
 }
 
 const ProfilePage = ({user} : ProfilePageProps) => {

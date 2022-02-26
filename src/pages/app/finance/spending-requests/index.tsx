@@ -1,18 +1,14 @@
 import AppPage from "../../../../components/pages/AppPage";
 import {GetServerSidePropsContext} from "next";
-import {MemberService} from "../../../../services/data/MemberService";
-import {FirebaseAdminService} from "../../../../services/firebase/FirebaseAdminService";
-import classToDto from "../../../../utils/ClassToDto";
-import {SpendingRequestService} from "../../../../services/data/SpendingRequestService";
-import {getVaccinationStatusText} from "../../../../models/db/sub-types/VaccinationStatus";
+import {FirebaseAdminService} from "../../../../models/firestore/FirebaseAdminService";
+import classToDto from "../../../../components/ClassToDto";
+import {SpendingRequestService} from "../../../../models/spending-request/SpendingRequestService";
 import StyledTable from "../../../../components/tables/StyledTable";
-import {SpendingRequest} from "../../../../models/db/SpendingRequest";
-import {util} from "protobufjs";
-import float = util.float;
+import Table from "../../../../components/tables/StyledTable";
+import {SpendingRequest} from "../../../../models/spending-request/SpendingRequest";
 import {SpendingRequestDataView} from "../../../../components/data-view/SpendingRequestDataView";
 import {useState} from "react";
 import styled from "styled-components";
-import Table from "../../../../components/tables/StyledTable";
 import Button from "../../../../components/Button";
 
 const UsersContent = styled.div`
@@ -37,9 +33,7 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
     const [spendingRequest, setSpendingRequest] = useState<SpendingRequest | null>(null)
 
     const getGst = (number: number) : number => {
-
         return number - (number/1.15)
-
     }
 
     const spendingRequestSelect = (id: string) => {
@@ -72,7 +66,7 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
                     let amount: number
 
 
-                    amount = parseFloat(request.amount!!)
+                    amount = parseFloat(request.amountString!!)
                     console.log("Success")
 
 

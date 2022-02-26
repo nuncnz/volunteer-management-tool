@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {FirebaseAdminService} from "../../../services/firebase/FirebaseAdminService";
-import {Member} from "../../../models/db/Members";
-import {MemberService} from "../../../services/data/MemberService";
+import {FirebaseAdminService} from "../../../models/firestore/FirebaseAdminService";
+import {Member} from "../../../models/member/Member";
+import {MemberService} from "../../../models/member/MemberService";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

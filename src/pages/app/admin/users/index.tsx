@@ -1,20 +1,20 @@
 import {GetServerSidePropsContext} from "next";
-import {UserService} from "../../../../services/data/UserService";
-import {FirebaseAdminService} from "../../../../services/firebase/FirebaseAdminService";
-import {AppUser} from "../../../../models/db/AppUser";
+import {UserService} from "../../../../models/user/UserService";
+import {FirebaseAdminService} from "../../../../models/firestore/FirebaseAdminService";
+import {User} from "../../../../models/user/User";
 import AppPage from "../../../../components/pages/AppPage";
 import StyledTable from "../../../../components/tables/StyledTable";
 import {useRouter} from "next/router";
-import {getUserScopeText} from "../../../../models/db/sub-types/UserScope";
+import {getUserScopeText} from "../../../../models/user/UserScope";
 import Button, {ButtonSize} from "../../../../components/Button";
 import styled from "styled-components";
 import AppUserForm from "../../../../components/forms/AppUserForm";
 import {useState} from "react";
 import Table from "../../../../components/tables/StyledTable";
-import classToDto from "../../../../utils/ClassToDto";
+import classToDto from "../../../../components/ClassToDto";
 
 interface UsersPageProps {
-    users: AppUser[]
+    users: User[]
 }
 
 
@@ -39,7 +39,7 @@ const UsersPage = ({users} : UsersPageProps) => {
 
     const router = useRouter()
 
-    const [appUser, setAppUser] = useState<AppUser | null>(null)
+    const [appUser, setAppUser] = useState<User | null>(null)
 
 
     const setUser = (id: string) => {
