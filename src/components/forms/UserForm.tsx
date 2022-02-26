@@ -9,24 +9,25 @@ import {CustomComponentProps} from "../CustomComponentProps";
 
 interface UserFormProps extends CustomComponentProps {
     appUser?: User | null
-    appUserSetState:  Dispatch<SetStateAction<User | null>>
+    userSetState:  Dispatch<SetStateAction<User | null>>
 }
 
-const UserForm = ({appUser = null, appUserSetState} : UserFormProps) => {
+/**
+ * Displays a form that can be used to display and edit user info.
+ */
+const BaseUserForm = ({appUser, userSetState} : UserFormProps) => {
 
-    const [isNew, setIsNew] = useState<boolean>(appUser == null)
-    const [firstName, setFirstName] = useState<string>(isNew ? "" : appUser!!.firstName)
-    const [lastName, setLastName] = useState<string>(isNew ? "" : appUser!!.lastName)
-    const [primaryEmail, setPrimaryEmail] = useState<string>(isNew ? "" : appUser!!.primaryEmail)
-    const [scope, setScope] = useState<Array<UserScope> | null>(isNew ? null : appUser!!.scope)
+    const [firstName, setFirstName] = useState<string>("")
+    const [lastName, setLastName] = useState<string>("")
+    const [primaryEmail, setPrimaryEmail] = useState<string>("")
+    const [scope, setScope] = useState<Array<UserScope> | null>([])
 
     useEffect(() => {
-        setIsNew(appUser == null)
-        setFirstName(isNew ? "" : appUser!!.firstName)
-        setLastName(isNew ? "" : appUser!!.lastName)
-        setPrimaryEmail(isNew ? "" : appUser!!.primaryEmail)
-        setScope(isNew ? null : appUser!!.scope)
-    }, [appUser, isNew])
+        setFirstName(appUser ? appUser.firstName : "")
+        setLastName(appUser ? appUser.lastName : "")
+        setPrimaryEmail(appUser ? appUser.primaryEmail : "")
+        setScope(appUser ? appUser.scope : [])
+    }, [appUser])
 
     const router = useRouter()
 
@@ -59,7 +60,7 @@ const UserForm = ({appUser = null, appUserSetState} : UserFormProps) => {
 
         await fetch("/api/users", options).then(async (res) => {
             if (res.status == 200) {
-                appUserSetState(null)
+                userSetState(null)
                 await router.replace("/app/admin/users")
             }
         })
@@ -115,7 +116,7 @@ const UserForm = ({appUser = null, appUserSetState} : UserFormProps) => {
                 </div>
                 <div id={"input"}>
                     <h3>Email</h3>
-                    <input disabled={!isNew} value={primaryEmail} type={"text"} onChange={(e) => setPrimaryEmail(e.target.value)}/>
+                    <input disabled={appUser != null} value={primaryEmail} type={"text"} onChange={(e) => setPrimaryEmail(e.target.value)}/>
                 </div>
                 <div id={"checkboxes"}>
                     <h3>User Scopes</h3>
@@ -128,13 +129,16 @@ const UserForm = ({appUser = null, appUserSetState} : UserFormProps) => {
                         )
                     })}
                 </div>
-                <Button onClick={() => handleFormSubmit()} label={isNew ? "Create" : "Update"}  size={ButtonSize.REGULAR}/>
+                <Button onClick={() => handleFormSubmit()} label={appUser == null ? "Create" : "Update"}  size={ButtonSize.REGULAR}/>
             </div>
         </BaseForm>
     )
 
 }
 
-const AppUserForm = styled(UserForm)``
+/**
+ * Displays a form that can be used to display and edit user info.
+ */
+const UserForm = styled(BaseUserForm)``
 
-export default AppUserForm
+export default UserForm

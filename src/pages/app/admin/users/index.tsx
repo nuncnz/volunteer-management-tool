@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 import {getUserScopeText} from "../../../../models/user/UserScope";
 import Button, {ButtonSize} from "../../../../components/Button";
 import styled from "styled-components";
-import AppUserForm from "../../../../components/forms/AppUserForm";
+import UserForm from "../../../../components/forms/UserForm";
 import {useState} from "react";
 import Table from "../../../../components/tables/StyledTable";
 import classToDto from "../../../../components/ClassToDto";
@@ -78,7 +78,7 @@ const UsersPage = ({users} : UsersPageProps) => {
                     </Table>
                     <Button label={"Create new user"} size={ButtonSize.REGULAR} onClick={() => setAppUser(null)} />
                 </div>
-                <AppUserForm appUser={appUser} appUserSetState={setAppUser}/>
+                <UserForm appUser={appUser} userSetState={setAppUser}/>
             </UsersContent>
         </AppPage>
     )

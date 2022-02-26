@@ -83,7 +83,6 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
             </StyledTable>
             {spendingRequest ? <SpendingRequestDataView spendingRequest={spendingRequest}/> : null}
             </UsersContent>
-            <Button size={ButtonSize.REGULAR} label={"test"} onClick={() => new EmailJsService().sendSpendingRequestEmail("test", "http://localhost:3000/app/finance/spending-requests/")} />
         </AppPage>
     )
 
