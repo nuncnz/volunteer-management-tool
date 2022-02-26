@@ -3,7 +3,7 @@ import {UserScope} from "../models/user/UserScope";
 import {NextRequest, NextResponse} from "next/server";
 
 export const scopedRoute = async (requiredScope: UserScope, req: NextRequest, failRedirectPath: string = "/403", successRedirectPath?: string) => {
-    if (req.cookies.token == "") {
+    if (req.cookies.token == "" || null || undefined) {
         return NextResponse.redirect("/auth?redirect=" + req.nextUrl.pathname)
     } else {
         const fetchOptions = {

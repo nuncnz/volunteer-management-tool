@@ -9,7 +9,8 @@ import {SpendingRequest} from "../../../../models/spending-request/SpendingReque
 import {SpendingRequestDataView} from "../../../../components/data-view/SpendingRequestDataView";
 import {useState} from "react";
 import styled from "styled-components";
-import Button from "../../../../components/Button";
+import Button, {ButtonSize} from "../../../../components/Button";
+import {EmailJsService} from "../../../../models/emailjs/EmaiJsService";
 
 const UsersContent = styled.div`
 
@@ -65,10 +66,7 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
 
                     let amount: number
 
-
                     amount = parseFloat(request.amountString!!)
-                    console.log("Success")
-
 
                     return (
                         <tr id={"clickable"} key={request.id} onClick={() => spendingRequestSelect(request.id!!)}>
@@ -85,6 +83,7 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
             </StyledTable>
             {spendingRequest ? <SpendingRequestDataView spendingRequest={spendingRequest}/> : null}
             </UsersContent>
+            <Button size={ButtonSize.REGULAR} label={"test"} onClick={() => new EmailJsService().sendSpendingRequestEmail("test", "http://localhost:3000/app/finance/spending-requests/")} />
         </AppPage>
     )
 

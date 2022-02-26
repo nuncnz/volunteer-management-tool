@@ -5,6 +5,8 @@ import {SpendingRequestTFRef} from "../../../models/spending-request/SpendingReq
 import {now} from "lodash";
 import {SpendingRequestService} from "../../../models/spending-request/SpendingRequestService";
 import {FirebaseAdminService} from "../../../models/firestore/FirebaseAdminService";
+import classToDto from "../../../components/ClassToDto";
+import {EmailJsService} from "../../../models/emailjs/EmaiJsService";
 
 /**
  * Handles `/api/finance/typeform`
@@ -18,7 +20,7 @@ const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
 
     const webhook = new TypeFormWebhook(req.body as TypeFormWebhookProps)
 
-    const request = new SpendingRequest({
+    const spendingRequest = new SpendingRequest({
                                             amount: webhook.findAnswer(SpendingRequestTFRef.AMOUNT)!!,
                                             date: webhook.findAnswer(SpendingRequestTFRef.DATE)!!,
                                             doc: webhook.findAnswer(SpendingRequestTFRef.DOCS),
@@ -34,13 +36,19 @@ const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
                                                 null
                                         })
 
-    await spendingRequestService.addSpendingRequest(request).then((resp) => {
+    await spendingRequestService.addSpendingRequest(spendingRequest).then((resp) => {
         if (resp != undefined) {
+            new EmailJsService().sendSpendingRequestEmail(spendingRequest.submitter, "https://app.pyf.org.nz/app/finance/spending-requests/"+resp.id)
             res.status(200).send(resp)
+            return
         } else {
             res.status(500).send(resp)
+            return
         }
     })
+
+    res.status(500)
+    return
 
 }
 

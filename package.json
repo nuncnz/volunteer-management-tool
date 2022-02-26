@@ -3,12 +3,13 @@
   "private": false,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf ./build && next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "deploy": "gcloud config set account 'michael@nunc.co.nz' && gcloud config set project volunteer-tool && next build && gcloud app deploy --project volunteer-tool --quiet"
+    "deploy": "gcloud config set account 'michael@nunc.co.nz' && gcloud config set project volunteer-tool && yarn build && gcloud app deploy --project volunteer-tool --quiet"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.4.0",
     "@types/lodash": "^4.14.178",
     "@types/styled-components": "^5.1.21",
     "firebase": "^9.6.4",

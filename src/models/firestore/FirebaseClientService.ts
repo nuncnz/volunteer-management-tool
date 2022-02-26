@@ -31,8 +31,8 @@ export default class FirebaseClientService {
         let provider = new GoogleAuthProvider()
 
         provider.setCustomParameters({
-            prompt: "select_account"
-        })
+                                         prompt: "select_account"
+                                     })
 
         signInWithPopup(this.auth, provider)
             .then(async (cred) => {
@@ -53,7 +53,8 @@ export default class FirebaseClientService {
                         }
                     })
                 })
-            })
+                // This catch branch stops a runtime error when the user closes the popup.
+            }).catch((x) => {})
     }
 
 
