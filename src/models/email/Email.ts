@@ -16,13 +16,14 @@ export class Email {
     constructor(props: EmailProps) {
         const subject= props.subject
         const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+        // Last empty string appears necessary
         let messageParts = [
             'From: PYF App <app@nunc.co.nz>',
             'To: <' + props.to + '>',
-            'Bcc: <michael@nunc.co.nz>',
             'Content-Type: text/html; charset=utf-8',
             'MIME-Version: 1.0',
-            `Subject: ${utf8Subject}`
+            `Subject: ${utf8Subject}`,
+            ''
         ]
 
         messageParts.push(...props.content)

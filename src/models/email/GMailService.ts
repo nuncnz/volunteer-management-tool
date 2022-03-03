@@ -4,6 +4,7 @@ import Gmail = gmail_v1.Gmail;
 import {Email} from "./Email";
 import {Response} from "../network/Response";
 const path = require("path")
+import '../util/isSuccessful'
 
 /**
  * A service used to access the Gmail API
@@ -44,22 +45,23 @@ export class GMailService {
      *
      * @param email
      */
-    sendEmail = (email: Email) => {
+    sendEmail = async (email: Email) => {
 
-        this.gmailClient.users.messages.send({
+        const emailResp = await this.gmailClient.users.messages.send({
             userId: 'me',
             requestBody: {
                 raw: email.getMessage()
             }
-        }).then((r) => {
-            return new Response(r.status)
         })
 
         /**
          * If the above promise is not made then return an error
          */
-        return new Response(500)
-
+        if (emailResp.status.isSuccessful()) {
+            return new Response(emailResp.status, emailResp)
+        } else {
+            return new Response(500, emailResp)
+        }
     }
 
 }

@@ -9,6 +9,6 @@ export class DI {
 
     static FirebaseAdminService = new FirebaseAdminService()
     static EmailService = new GMailService()
-    static SpendingRequestService = new SpendingRequestService(this.FirebaseAdminService)
+    static SpendingRequestService = new SpendingRequestService(DI.FirebaseAdminService)
 
 }

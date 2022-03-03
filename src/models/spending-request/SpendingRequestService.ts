@@ -13,7 +13,7 @@ export class SpendingRequestService extends FirestoreService<SpendingRequest> {
         super(firebaseAdminService, FirestoreCollection.SPENDING_REQUESTS, dataConverter<SpendingRequest>());
     }
 
-    async addSpendingRequest(spendingRequest: SpendingRequest) {
+    public async addSpendingRequest(spendingRequest: SpendingRequest) {
         return await super.addDoc(spendingRequest)
     }
 
