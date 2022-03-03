@@ -10,7 +10,7 @@ import {SpendingRequestDataView} from "../../../../components/data-view/Spending
 import {useState} from "react";
 import styled from "styled-components";
 import Button, {ButtonSize} from "../../../../components/Button";
-import {EmailJsService} from "../../../../models/emailjs/EmaiJsService";
+import {EmailService} from "../../../../models/emailjs/EmailService";
 
 const UsersContent = styled.div`
 
