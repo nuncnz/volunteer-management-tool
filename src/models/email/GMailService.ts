@@ -1,62 +1,65 @@
 import {JWT} from "google-auth-library";
+import {gmail_v1} from "@googleapis/gmail/v1";
+import Gmail = gmail_v1.Gmail;
+import {Email} from "./Email";
+import {Response} from "../network/Response";
 const path = require("path")
 
+/**
+ * A service used to access the Gmail API
+ */
 export class GMailService {
 
+    /**
+     * The client library of the Gmail API.
+     */
+    gmailClient: Gmail
+
     constructor() {
-        this.initGmailApi().then()
+        this.gmailClient = this.init()
     }
 
-    initGmailApi = async () => {
+    /**
+     * Init the Gmail API.
+     */
+    init = () => {
         const gmail = require('@googleapis/gmail')
-
         // Setting up JWT as per: https://github.com/googleapis/google-api-nodejs-client/issues/2322
         const authClient = new JWT({
-            keyFile: path.resolve(__dirname, "../../../../../key-2.json"),
+            keyFile: path.resolve(__dirname, "../../../../../private_keys/gmail_service_account.json"),
             scopes: ['https://mail.google.com/'],
             subject: "app@nunc.co.nz",
         })
 
-        await authClient.authorize()
+        authClient.authorize().then()
 
-        const gmailClient = await gmail.gmail({
+        return gmail.gmail({
             version: 'v1',
             auth: authClient
         });
+    }
 
-        // You can use UTF-8 encoding for the subject using the method below.
-        // You can also just use a plain string if you don't need anything fancy.
-        const subject = '🤘 Hello 🤘';
-        const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
-        const messageParts = [
-            'From: Big M <app@nunc.co.nz>',
-            'To: Big FloppyThing <halym.s@pyf.org.nz>',
-            'Content-Type: text/html; charset=utf-8',
-            'MIME-Version: 1.0',
-            `Subject: ${utf8Subject}`,
-            '',
-            'This is a message just to say hello.',
-            'So... <b>Hello!</b>  🤘❤️😎',
-        ];
-        const message = messageParts.join('\n');
+    /**
+     * Given an `Email` this method uses the service to send the email.
+     *
+     * @param email
+     */
+    sendEmail = (email: Email) => {
 
-        // The body needs to be base64url encoded.
-        const encodedMessage = Buffer.from(message)
-            .toString('base64')
-            .replace(/\+/g, '-')
-            .replace(/\//g, '_')
-            .replace(/=+$/, '');
-
-
-        const sendEmailResp = await gmailClient.users.messages.send({
-            userId: "me",
+        this.gmailClient.users.messages.send({
+            userId: 'me',
             requestBody: {
-                raw: encodedMessage
+                raw: email.getMessage()
             }
+        }).then((r) => {
+            return new Response(r.status)
         })
 
-        console.log(sendEmailResp.data)
+        /**
+         * If the above promise is not made then return an error
+         */
+        return new Response(500)
+
     }
 
 }
-

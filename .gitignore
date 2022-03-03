@@ -41,3 +41,7 @@ yarn-error.log*
 
 # gcloud app config
 app.yaml
+
+
+# private_keys
+/private_keys
