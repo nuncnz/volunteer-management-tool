@@ -3,15 +3,15 @@ import {UserService} from "../../../../models/user/UserService";
 import {FirebaseAdminService} from "../../../../models/firestore/FirebaseAdminService";
 import {User} from "../../../../models/user/User";
 import AppPage from "../../../../components/pages/AppPage";
-import StyledTable from "../../../../components/tables/StyledTable";
+import StyledTable from "../../../../components/ui/tables/StyledTable";
 import {useRouter} from "next/router";
 import {getUserScopeText} from "../../../../models/user/UserScope";
-import Button, {ButtonSize} from "../../../../components/Button";
+import Button, {ButtonSize} from "../../../../components/ui/Button";
 import styled from "styled-components";
-import UserForm from "../../../../components/forms/UserForm";
+import UserForm from "../../../../components/ui/forms/UserForm";
 import {useState} from "react";
-import Table from "../../../../components/tables/StyledTable";
-import classToDto from "../../../../components/ClassToDto";
+import Table from "../../../../components/ui/tables/StyledTable";
+import classToDto from "../../../../models/util/ClassToDto";
 
 interface UsersPageProps {
     users: User[]

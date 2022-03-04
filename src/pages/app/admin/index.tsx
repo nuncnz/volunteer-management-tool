@@ -1,4 +1,4 @@
-import Navigation from "../../../components/navigation/Navigation";
+import Navigation from "../../../components/ui/navigation/Navigation";
 import AppPage from "../../../components/pages/AppPage";
 import Link from "next/link";
 

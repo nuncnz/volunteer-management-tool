@@ -1,4 +1,4 @@
-import Navigation from "../navigation/Navigation";
+import Navigation from "../ui/navigation/Navigation";
 import styled from "styled-components";
 import {ReactNode} from "react";
 

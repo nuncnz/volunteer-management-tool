@@ -4,14 +4,14 @@ import AppPage from "../../../../components/pages/AppPage";
 import {MemberService} from "../../../../models/member/MemberService";
 import {Member} from "../../../../models/member/Member";
 import {useRouter} from "next/router";
-import StyledTable from "../../../../components/tables/StyledTable";
-import Table from "../../../../components/tables/StyledTable";
+import StyledTable from "../../../../components/ui/tables/StyledTable";
+import Table from "../../../../components/ui/tables/StyledTable";
 import {getVaccinationStatusText} from "../../../../models/member/VaccinationStatus";
-import MemberForm from "../../../../components/forms/MemberForm";
+import MemberForm from "../../../../components/ui/forms/MemberForm";
 import styled from "styled-components";
-import Button, {ButtonSize} from "../../../../components/Button";
+import Button, {ButtonSize} from "../../../../components/ui/Button";
 import {useState} from "react";
-import classToDto from "../../../../components/ClassToDto";
+import classToDto from "../../../../models/util/ClassToDto";
 
 
 interface AdminMembersPageProps {

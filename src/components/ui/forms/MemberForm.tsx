@@ -1,11 +1,11 @@
-import {VaccinationStatus} from "../../models/member/VaccinationStatus";
+import {VaccinationStatus} from "../../../models/member/VaccinationStatus";
 import BaseForm from "./BaseForm";
 import {useRouter} from "next/router";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {Member} from "../../models/member/Member";
+import {Member} from "../../../models/member/Member";
 import styled from "styled-components";
-import Button, {ButtonSize} from "../Button";
-import {CustomComponentProps} from "../CustomComponentProps";
+import Button, {ButtonSize, ButtonStyle} from "../Button";
+import {CustomComponentProps} from "../../CustomComponentProps";
 
 interface MemberFormProps extends CustomComponentProps {
     member?: Member | null
@@ -101,7 +101,7 @@ const CustomMemberForm = ({member = null, memberSetState} : MemberFormProps) => 
                         <option value={VaccinationStatus.NO_PASS}>No Pass 🚩</option>
                     </select>
                 </div>
-                <Button label={isNew ? "Create" : "Update"} size={ButtonSize.REGULAR} onClick={() => handleSubmit()} />
+                <Button label={isNew ? "Create" : "Update"} size={ButtonSize.REGULAR} style={ButtonStyle.PRIMARY} onClick={() => handleSubmit()} />
             </div>
         </BaseForm>
     )

@@ -1,11 +1,11 @@
-import {User} from "../../models/user/User";
-import {getUserScopeText, UserScope, UserScopeList} from "../../models/user/UserScope";
+import {User} from "../../../models/user/User";
+import {getUserScopeText, UserScope, UserScopeList} from "../../../models/user/UserScope";
 import BaseForm from "./BaseForm";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Button, {ButtonSize} from "../Button";
 import styled from "styled-components";
-import {CustomComponentProps} from "../CustomComponentProps";
+import {CustomComponentProps} from "../../CustomComponentProps";
 
 interface UserFormProps extends CustomComponentProps {
     appUser?: User | null

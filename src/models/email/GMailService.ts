@@ -4,7 +4,7 @@ import Gmail = gmail_v1.Gmail;
 import {Email} from "./Email";
 import {Response} from "../network/Response";
 const path = require("path")
-import '../util/isSuccessful'
+import '../../util/isSuccessful'
 
 /**
  * A service used to access the Gmail API

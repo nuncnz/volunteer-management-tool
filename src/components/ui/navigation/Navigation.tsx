@@ -2,16 +2,16 @@ import Link from "next/link";
 import {FC, ReactNode} from "react";
 import styled from "styled-components";
 import {useRouter} from "next/router";
-import {AppURL} from "../AppURL";
-import {NavLinkData} from "../NavLinkData";
+import {AppURL} from "../../AppURL";
+import {NavLinkData} from "./NavLinkData";
 import SubNavigation from "./SubNavigation";
 import NavLink from "./NavLink";
-import {useAuth} from "../providers/AuthProvider";
+import {useAuth} from "../../providers/AuthProvider";
 
 const NavigationContainer = styled.div`
 
   width: 100% - (100px * 2);
-  height: 7rem;
+  height: 6rem;
 
   padding: 0 100px;
 

@@ -3,6 +3,7 @@ import {SpendingRequest} from "./SpendingRequest";
 import {FirebaseAdminService} from "../firestore/FirebaseAdminService";
 import {FirestoreCollection} from "../firestore/FirestoreCollection";
 import {dataConverter} from "../firestore/DataConverter";
+import {Query} from "../firestore/Query";
 
 /**
  * Service used to access spending request data in the database.
@@ -27,6 +28,10 @@ export class SpendingRequestService extends FirestoreService<SpendingRequest> {
 
     async getAllSpendingRequests() {
         return this.getDocs()
+    }
+
+    async getSpendingRequest(id: string) {
+        return this.getDoc(new Query("id", "==", id))
     }
 
 

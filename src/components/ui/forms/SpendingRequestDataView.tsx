@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {CustomComponentProps} from "../CustomComponentProps";
-import {SpendingRequest} from "../../models/spending-request/SpendingRequest";
-import Button, {ButtonSize} from "../Button";
+import {CustomComponentProps} from "../../CustomComponentProps";
+import {SpendingRequest} from "../../../models/spending-request/SpendingRequest";
+import Button, {ButtonSize, ButtonStyle} from "../Button";
 
 
 const DataViewContainer = styled.div`
@@ -104,7 +104,7 @@ const DataView = ({spendingRequest} : SpendingRequestDataViewProps) => {
                         )
                     }) : null}
                 </div>
-                <Button label={"Approve"} size={ButtonSize.REGULAR} onClick={() => approve()} />
+                <Button label={"Approve"} size={ButtonSize.REGULAR} style={ButtonStyle.PRIMARY} onClick={() => approve()} />
             </div>
         </DataViewContainer>
     )

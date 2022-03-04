@@ -1,5 +1,5 @@
 import AppPage from "../../../../components/pages/AppPage";
-import StyledTable from "../../../../components/tables/StyledTable";
+import StyledTable from "../../../../components/ui/tables/StyledTable";
 import {AttendanceEvent} from "../../../../models/attendance-event/Event";
 
 interface AttendanceEventsProps {

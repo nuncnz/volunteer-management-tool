@@ -4,11 +4,13 @@
 import {GMailService} from "../models/email/GMailService";
 import {SpendingRequestService} from "../models/spending-request/SpendingRequestService";
 import {FirebaseAdminService} from "../models/firestore/FirebaseAdminService";
+import {UserService} from "../models/user/UserService";
 
 export class DI {
 
     static FirebaseAdminService = new FirebaseAdminService()
     static EmailService = new GMailService()
     static SpendingRequestService = new SpendingRequestService(DI.FirebaseAdminService)
+    static UserService = new UserService(DI.FirebaseAdminService)
 
 }

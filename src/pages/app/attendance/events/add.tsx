@@ -2,7 +2,7 @@ import AppPage from "../../../../components/pages/AppPage";
 import {useState} from "react";
 import {EventType} from "../../../../models/attendance-event/Event";
 import {MemberGroup} from "../../../../models/member-group/MemberGroup";
-import BaseForm from "../../../../components/forms/BaseForm";
+import BaseForm from "../../../../components/ui/forms/BaseForm";
 
 interface AttendanceEventAddProps {
     memberGroups: Array<MemberGroup>

@@ -5,7 +5,7 @@ import {DataModel} from "./DataModel";
 import {Query} from "./Query";
 import {firestore} from "firebase-admin";
 import FirestoreDataConverter = firestore.FirestoreDataConverter;
-import classToDto from "../../components/ClassToDto";
+import classToDto from "../util/ClassToDto";
 
 export class FirestoreService<T extends DataModel<T>> {
 

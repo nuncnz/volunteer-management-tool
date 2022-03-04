@@ -1,6 +1,6 @@
 import {useAuth} from "../../components/providers/AuthProvider";
 import {GetServerSideProps, GetServerSidePropsContext} from "next";
-import {scopedRoute} from "../../components/ScopedRoute";
+import {scopedRoute} from "../../util/ScopedRoute";
 import styled from "styled-components";
 import firebaseui from "firebaseui";
 import {GoogleAuthProvider} from "firebase/auth";

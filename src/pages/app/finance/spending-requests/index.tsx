@@ -1,16 +1,16 @@
 import AppPage from "../../../../components/pages/AppPage";
 import {GetServerSidePropsContext} from "next";
 import {FirebaseAdminService} from "../../../../models/firestore/FirebaseAdminService";
-import classToDto from "../../../../components/ClassToDto";
+import classToDto from "../../../../models/util/ClassToDto";
 import {SpendingRequestService} from "../../../../models/spending-request/SpendingRequestService";
-import StyledTable from "../../../../components/tables/StyledTable";
-import Table from "../../../../components/tables/StyledTable";
+import StyledTable from "../../../../components/ui/tables/StyledTable";
+import Table from "../../../../components/ui/tables/StyledTable";
 import {SpendingRequest} from "../../../../models/spending-request/SpendingRequest";
-import {SpendingRequestDataView} from "../../../../components/data-view/SpendingRequestDataView";
+import {SpendingRequestDataView} from "../../../../components/ui/forms/SpendingRequestDataView";
 import {useState} from "react";
 import styled from "styled-components";
-import Button, {ButtonSize} from "../../../../components/Button";
-import {EmailService} from "../../../../models/emailjs/EmailService";
+import Button from "../../../../components/ui/Button";
+import {useRouter} from "next/router";
 
 const UsersContent = styled.div`
 
@@ -32,6 +32,8 @@ const UsersContent = styled.div`
 const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
 
     const [spendingRequest, setSpendingRequest] = useState<SpendingRequest | null>(null)
+
+    console.log()
 
     const getGst = (number: number) : number => {
         return number - (number/1.15)
