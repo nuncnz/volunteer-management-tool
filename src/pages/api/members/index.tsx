@@ -1,28 +1,29 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {FirebaseAdminService} from "../../../models/firestore/FirebaseAdminService";
 import {Member} from "../../../models/member/Member";
-import {MemberService} from "../../../models/member/MemberService";
+import {DI} from "../../../di/DI";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    const service = new MemberService(new FirebaseAdminService())
-    const member = JSON.parse(req.body) as Member
-
-    let newMember: Member | null
+    const member = Member.fromObj(JSON.parse(req.body))
 
     if (member.id == null) {
         // create a new app user
-        newMember = await service.addMember(member) || null
+        await DI.MemberService.addMember(member).then((member) => {
+            if (member != undefined) {
+                res.status(200).json({member: member})
+            }
+        })
+        return
     } else {
-        // update the existing app user
-        newMember = await service.updateMember(member) || null
+        // update an existing member
+        await DI.MemberService.updateMember(member).then((member) => {
+            if (member != undefined) {
+                res.status(200).json({member: member})
+            }
+        })
     }
 
-    if (newMember) {
-        res.status(200).send({user: newMember})
-    } else {
-        res.status(500).send({user: null})
-    }
+    res.status(200).json({member: null})
 }
 

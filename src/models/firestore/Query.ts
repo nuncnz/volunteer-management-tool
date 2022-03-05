@@ -1,5 +1,4 @@
-import {firestore} from "firebase-admin";
-import WhereFilterOp = firestore.WhereFilterOp;
+import {WhereFilterOp} from "@firebase/firestore-types";
 
 export class Query {
 

@@ -3,7 +3,7 @@ import {getUserScopeText, UserScope, UserScopeList} from "../../../models/user/U
 import BaseForm from "./BaseForm";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import Button, {ButtonSize} from "../Button";
+import Button, {ButtonSize, ButtonStyle} from "../Button";
 import styled from "styled-components";
 import {CustomComponentProps} from "../../CustomComponentProps";
 
@@ -129,7 +129,7 @@ const BaseUserForm = ({appUser, userSetState} : UserFormProps) => {
                         )
                     })}
                 </div>
-                <Button onClick={() => handleFormSubmit()} label={appUser == null ? "Create" : "Update"}  size={ButtonSize.REGULAR}/>
+                <Button onClick={() => handleFormSubmit()} styling={ButtonStyle.PRIMARY} label={appUser == null ? "Create" : "Update"}  size={ButtonSize.REGULAR}/>
             </div>
         </BaseForm>
     )

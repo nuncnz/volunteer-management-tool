@@ -1,66 +1,77 @@
 import {DataModel} from "../firestore/DataModel";
-import {UserScope} from "../user/UserScope";
-import {DocumentData, FirestoreDataConverter, QueryDocumentSnapshot} from "firebase-admin/lib/firestore";
 import {VaccinationStatus} from "./VaccinationStatus";
 
-export class Member implements DataModel<Member>{
+/**
+ * Data class that represents a member of a volunteer organisation.
+ */
+export class Member implements DataModel {
 
     /**
-     * The [Member]'s id in the DB
+     * @param id The [Member]'s id in the DB
+     * @param googleUid The [Member]'s Google UID
+     * @param firstName The [Member]'s first name.
+     * @param lastName The [Member]'s last name.
+     * @param primaryEmail The [Member]'s primary email.
+     * @param secondaryEmail The [Member]'s secondary email.
+     * @param dateOfBirth The [Member]'s date of birth.
+     * @param vaccinationStatus Vaccination status of the [Member].
+     * @param picture Profile picture of the [Member].
      */
-    id: string | null
-    /**
-     * The [Member]'s Google UID
-     */
+    constructor(
+        public id: string | null,
+        public googleUid: string | null,
+        public firstName: string,
+        public lastName: string,
+        public primaryEmail: string,
+        public secondaryEmail: string | null,
+        public dateOfBirth: string,
+        public vaccinationStatus: VaccinationStatus,
+        public picture: string | null
+    ) {}
 
     /**
-     * The [Member]'s first name.
+     * Takes a [Member] in the form of an object, and returns an instance of the [Member] class matching [obj]
+     *
+     * @param obj A [Member] in the form of an object.
      */
-    firstName: string
-    /**
-     * The [Member]'s last name.
-     */
-    lastName: string
-
-    /**
-     * The [Member]'s primary email.
-     */
-    primaryEmail: string
-    /**
-     * The [Member]'s secondary email.
-     */
-    secondaryEmail: string | null
-
-    /**
-     * The member's date of birth.
-     */
-    dateOfBirth: string
-
-    vaccinationStatus: VaccinationStatus
-
-    googleUid: string | null
-
-    picture: string | null
-
-    constructor(member: {firstName: string,
-        lastName: string,
-        primaryEmail: string,
-        id?: string | null,
-        secondaryEmail?: string | null,
-        googleUid?: string | null,
-        picture?: string | null,
-        dateOfBirth: string,
-        vaccinationStatus: VaccinationStatus
-    })
-    {
-        this.firstName = member.firstName
-        this.lastName = member.lastName
-        this.primaryEmail = member.primaryEmail
-        this.id = member.id || null
-        this.secondaryEmail = member.secondaryEmail || null
-        this.dateOfBirth = member.dateOfBirth
-        this.vaccinationStatus = member.vaccinationStatus
-        this.googleUid = member.googleUid || null
-        this.picture = member.picture || null
+    static fromObj(obj: Member): Member {
+        return new Member(
+            obj.id,
+            obj.googleUid,
+            obj.firstName,
+            obj.lastName,
+            obj.primaryEmail,
+            obj.secondaryEmail,
+            obj.dateOfBirth,
+            obj.vaccinationStatus,
+            obj.picture)
     }
+
+    static empty = (): Member => {
+        return new Member(
+            null,
+            null,
+            "",
+            "",
+            "",
+            null,
+            "",
+            VaccinationStatus.UNKNOWN,
+            null,
+        )
+    }
+
+    isValid = (): boolean => {
+        return false
+    }
+
+    isBlank = (): boolean => {
+        return true
+    }
+
 }
+
+
+
+
+

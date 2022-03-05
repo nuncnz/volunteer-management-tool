@@ -9,7 +9,7 @@ import Table from "../../../../components/ui/tables/StyledTable";
 import {getVaccinationStatusText} from "../../../../models/member/VaccinationStatus";
 import MemberForm from "../../../../components/ui/forms/MemberForm";
 import styled from "styled-components";
-import Button, {ButtonSize} from "../../../../components/ui/Button";
+import Button, {ButtonSize, ButtonStyle} from "../../../../components/ui/Button";
 import {useState} from "react";
 import classToDto from "../../../../models/util/ClassToDto";
 
@@ -64,6 +64,7 @@ const AdminMembersPage = ({members} : AdminMembersPageProps) => {
                             <th>Vaccination Status?</th>
                         </tr>
                         </thead>
+                        <tbody>
                         {members?.map((user) => {
                             return (
                                 <tr id={"clickable"} key={user.id} onClick={() => setMember(user.id!!)}>
@@ -75,10 +76,11 @@ const AdminMembersPage = ({members} : AdminMembersPageProps) => {
                                 </tr>
                             )
                         })}
+                        </tbody>
                     </StyledTable>
-                    <Button label={"Create new member"} size={ButtonSize.REGULAR} onClick={() => setSelectedMember(null)} />
+                    <Button label={"Create new member"} styling={ButtonStyle.PRIMARY} size={ButtonSize.REGULAR} onClick={() => setSelectedMember(null)} />
                 </div>
-                <MemberForm member={selectedMember} memberSetState={setSelectedMember}/>
+                <MemberForm successCallback={() => {console.log("Success")}} errorCallback={() => {console.log("Error")}}/>
             </UsersContent>
         </AppPage>
     )

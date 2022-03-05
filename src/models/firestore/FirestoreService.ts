@@ -7,7 +7,7 @@ import {firestore} from "firebase-admin";
 import FirestoreDataConverter = firestore.FirestoreDataConverter;
 import classToDto from "../util/ClassToDto";
 
-export class FirestoreService<T extends DataModel<T>> {
+export class FirestoreService<T extends DataModel> {
 
     firebaseAdmin: FirebaseAdminService
     firestore: Firestore
@@ -49,9 +49,7 @@ export class FirestoreService<T extends DataModel<T>> {
     async addDoc(data: T) {
         const docRef = this.collection.doc()
         data.id = docRef.id
-        const newData = classToDto(data) as T
-        await this.collection.doc(docRef.id).set(newData).then((r) => {})
-
+        await this.collection.doc(docRef.id).set(classToDto(data)).then((r) => {})
         return await this.getDoc(new Query("id", "==", data.id))
     }
 
@@ -62,7 +60,7 @@ export class FirestoreService<T extends DataModel<T>> {
     async updateDoc(data: T) {
         if (data.id != null) {
             const docRef = this.collection.doc(data.id!!)
-            await this.collection.doc(docRef.id).set(data).then((r) => {
+            await this.collection.doc(docRef.id).set(classToDto(data)).then((r) => {
             })
 
             return await this.getDoc(new Query("id", "==", data.id!!))
